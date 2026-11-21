@@ -590,7 +590,7 @@ const COLORS = ['#E2557D','#23946F','#7C5FD9','#D9742B'];
 const goldOpen = () => PREVIEW || today() >= DAYS[2].d;
 const activeCoupons = () => {
   const list = COUPONS.filter(c => !c.gold && ACTIVE.includes(c.id));
-  return goldOpen() ? COUPONS.filter(c => c.gold).concat(list) : list;
+  return goldOpen() ? list.concat(COUPONS.filter(c => c.gold)) : list;
 };
 INIT.kupony = () => {
   $('#cpList').innerHTML = activeCoupons().map(c => `<div class="cp${c.gold ? ' gold' : ''}" data-id="${c.id}" style="--c:${c.gold ? '#B8861B' : COLORS[(c.id - 1) % 4]}">
@@ -958,7 +958,7 @@ const BONUS = {
     <div class="gopts">${GUESS.map((g, i) => `<button class="gopt" data-g="${i}">${g[0]}</button>`).join('')}</div>
     <div class="gres" id="gres"></div>`,
   gold: () => `<div class="bt">🎁 Бонус дня</div>
-    <div class="goldbox">👑 Открыт секретный <b>золотой купон № 21</b>! Его нет в общем списке — он уже ждёт тебя первым во вкладке «Купоны».</div>
+    <div class="goldbox">👑 Открыт секретный <b>золотой купон № 21</b>! Раньше его не было — теперь он ждёт тебя в самом конце вкладки «Купоны».</div>
     <button class="btn block" id="toGold" style="margin-top:12px;background:#B8861B;box-shadow:0 8px 18px rgba(184,134,27,.3)">Стереть золотой купон</button>`,
   wheel: () => `<div class="bt">🎁 Колесо комплиментов</div>
     <div class="wheelbox"><div class="wheel" id="wheel">${WHEEL_EMO.map((e, i) => {
@@ -993,7 +993,10 @@ function bindBonus(k){
     if (b.dataset.g === '3') confetti();
     $('#askEnot').onclick = () => sendToEnot('Проверка 🕵️‍♀️', `Кот Енот, признавайся: что ты сейчас делаешь? 🕵️‍♀️\nЯ угадала: «${g[0]}»\nЖду фото-доказательство 📸`);
   });
-  if (k === 'gold') $('#toGold').onclick = () => { closeModal(); inited.kupony = false; showTab('kupony'); };
+  if (k === 'gold') $('#toGold').onclick = () => {
+    closeModal(); inited.kupony = false; showTab('kupony');
+    setTimeout(() => { const g = $('.cp.gold'); if (g) g.scrollIntoView({behavior:'smooth', block:'center'}); }, 450);
+  };
   if (k === 'wheel'){
     let rot = 0, busy = false;
     $('#spin').onclick = () => {
