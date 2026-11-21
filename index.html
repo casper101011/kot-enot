@@ -49,6 +49,7 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;paddin
 .btn.mint{background:var(--mint-d);box-shadow:0 8px 18px rgba(35,148,111,.28)}
 .btn.block{display:flex;width:100%}
 .made{font-size:12.5px;color:var(--muted);margin-top:18px}
+.tgtip{background:#fff;border:2px dashed var(--pink);border-radius:16px;padding:12px 14px;font-size:13.5px;font-weight:600;line-height:1.4;margin-top:18px;max-width:380px;text-align:left}
 
 /* header + nav */
 .top{position:sticky;top:0;z-index:20;background:rgba(255,228,238,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
@@ -120,7 +121,7 @@ main{padding:18px 0 120px}
 .cp-e{font-size:42px;line-height:1}
 .cp-t{font-weight:900;font-size:19px;line-height:1.2}
 .cp-d{color:var(--muted);font-size:14px;margin-top:3px}
-.cp canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;transition:opacity .5s;cursor:grab}
+.cp canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y;transition:opacity .5s;cursor:grab}
 .cp canvas.gone{opacity:0;pointer-events:none}
 .cp-f{border-top:2px dashed var(--line);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;min-height:58px}
 .cp-f:before,.cp-f:after{content:"";position:absolute;top:-11px;width:20px;height:20px;border-radius:50%;background:var(--bg)}
@@ -229,6 +230,7 @@ main{padding:18px 0 120px}
     <div class="row"><span>Оплата</span><b>обнимашками</b></div>
   </div>
   <button class="btn" id="enterBtn" style="margin-top:22px">Войти на приём →</button>
+  <div class="tgtip" hidden>📱 Ты во встроенном браузере Telegram — в нём купоны и игра работают хуже. Нажми <b>⋯</b> или <b>⋮</b> вверху → <b>«Открыть в браузере»</b>.</div>
   <p class="made">Собрано Котом Енотом вместе с Мусей и ИИ<br>специально для тебя 💗</p>
 </section>
 
@@ -245,7 +247,8 @@ main{padding:18px 0 120px}
 
     <section class="tab" id="tab-kupony">
       <h2 class="ttl">Купоны 🎟</h2>
-      <p class="lead">Сотри пальцем верхний слой — под ним подарок. Жми «Активировать», и Кот Енот обязан исполнить. Срок действия — бессрочно.</p>
+      <p class="lead">Тапай пальцем по купону (или три его), чтобы стереть верхний слой — под ним подарок. Жми «Активировать», и Кот Енот обязан исполнить. Срок действия — бессрочно.</p>
+      <div class="tgtip" hidden style="margin:0 0 14px">📱 В браузере Telegram купоны стираются хуже. Лучше открыть страницу в обычном браузере: <b>⋯</b> или <b>⋮</b> вверху → <b>«Открыть в браузере»</b>.</div>
       <div class="counter" id="cpCounter"></div>
       <div class="coupons" id="cpList"></div>
     </section>
@@ -385,6 +388,8 @@ const store = {
 const params = new URLSearchParams(location.search);
 if (params.has('reset')) { try{ Object.keys(localStorage).filter(k => k.startsWith('enot_')).forEach(k => localStorage.removeItem(k)); }catch(e){} }
 const PREVIEW = params.has('preview');
+const IN_TG = /Telegram/i.test(navigator.userAgent) || 'TelegramWebviewProxy' in window || 'TelegramWebview' in window;
+if (IN_TG) document.querySelectorAll('.tgtip').forEach(el => el.hidden = false);
 function plural(n, one, few, many){ const a = n % 10, b = n % 100; return a === 1 && b !== 11 ? one : a >= 2 && a <= 4 && (b < 12 || b > 14) ? few : many; }
 function vib(ms){ try{ navigator.vibrate && navigator.vibrate(ms || 12); }catch(e){} }
 
@@ -643,7 +648,7 @@ function setupScratch(card){
   const top = h / 2 - (lines.length * lh + 22) / 2;
   lines.forEach((ln, k) => ctx.fillText(ln, w / 2, top + lh / 2 + k * lh));
   ctx.font = '700 13px Nunito, sans-serif'; ctx.fillStyle = gold ? '#9A7320' : '#9A86AE';
-  ctx.fillText(locked ? 'откроется 23 ноября — подглядывать нельзя' : '☝️ сотри — узнаешь, что там', w / 2, top + lines.length * lh + 12);
+  ctx.fillText(locked ? 'откроется 23 ноября — подглядывать нельзя' : '☝️ тапай пальцем — узнаешь, что там', w / 2, top + lines.length * lh + 12);
   body.classList.remove('covered');
   if (locked){
     cv.style.touchAction = 'auto'; cv.style.cursor = 'pointer';
@@ -652,13 +657,13 @@ function setupScratch(card){
   }
   ctx.globalCompositeOperation = 'destination-out';
   ctx.lineWidth = 40; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-  let down = false, last = null, moves = 0, done = false;
+  let down = false, rubbing = false, start = null, last = null, moves = 0, done = false;
   const pt = e => { const r = cv.getBoundingClientRect(); return {x: e.clientX - r.left, y: e.clientY - r.top}; };
   const check = () => {
     if (done) return;
     const d = ctx.getImageData(0, 0, cv.width, cv.height).data; let clear = 0, tot = 0;
     for (let i = 3; i < d.length; i += 4 * 23){ tot++; if (d[i] < 30) clear++; }
-    if (clear / tot > .5){ done = true; reveal(); }
+    if (clear / tot > .45){ done = true; reveal(); }
   };
   const reveal = () => {
     cv.classList.add('gone'); setTimeout(() => cv.remove(), 550);
@@ -666,14 +671,28 @@ function setupScratch(card){
     markOpen(card); updateCounter(); vib(30);
     const b = body.getBoundingClientRect(); confetti(b.left + b.width / 2, b.top + b.height / 2, 30);
   };
-  cv.addEventListener('pointerdown', e => { down = true; last = pt(e); try{ cv.setPointerCapture(e.pointerId); }catch(_){} ctx.beginPath(); ctx.arc(last.x, last.y, 20, 0, 7); ctx.fill(); });
+  /* тап = стирает пятно; горизонтальное движение = трёт; вертикальное = листает страницу */
+  const blob = p => {
+    for (let k = 0; k < 6; k++){ ctx.beginPath(); ctx.arc(p.x + (Math.random() - .5) * 46, p.y + (Math.random() - .5) * 32, 18 + Math.random() * 14, 0, 7); ctx.fill(); }
+  };
+  cv.addEventListener('pointerdown', e => { if (done) return; down = true; rubbing = false; start = last = pt(e); });
   cv.addEventListener('pointermove', e => {
     if (!down) return; const p = pt(e);
+    if (!rubbing){
+      const dx = Math.abs(p.x - start.x), dy = Math.abs(p.y - start.y);
+      if (e.pointerType === 'mouse' || (dx > 8 && dx > dy * 1.3)){ rubbing = true; try{ cv.setPointerCapture(e.pointerId); }catch(_){} }
+      else return;
+    }
     ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(p.x, p.y); ctx.stroke(); last = p;
     if (++moves % 6 === 0) check();
   });
-  const up = () => { if (down){ down = false; check(); } };
-  cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+  cv.addEventListener('pointerup', e => {
+    if (!down) return; down = false;
+    if (!rubbing){ blob(pt(e)); vib(8); }
+    rubbing = false; check();
+  });
+  cv.addEventListener('pointercancel', () => { down = false; rubbing = false; });
+  cv.addEventListener('touchmove', e => { if (rubbing) e.preventDefault(); }, {passive: false});
 }
 function markOpen(card){
   const id = +card.dataset.id, c = COUPONS.find(x => x.id === id), btn = card.querySelector('.act');
@@ -821,6 +840,8 @@ const game = (() => {
   const move = e => { const r = cv.getBoundingClientRect(); tx = Math.max(26, Math.min(W - 26, e.clientX - r.left)); };
   cv.addEventListener('pointerdown', e => { move(e); try{ cv.setPointerCapture(e.pointerId); }catch(_){} });
   cv.addEventListener('pointermove', move);
+  cv.addEventListener('touchstart', e => e.preventDefault(), {passive: false});
+  cv.addEventListener('touchmove', e => e.preventDefault(), {passive: false});
   document.addEventListener('keydown', e => {
     if (!running) return;
     if (e.key === 'ArrowLeft') tx = Math.max(26, tx - 45);
