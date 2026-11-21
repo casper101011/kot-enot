@@ -173,6 +173,28 @@ main{padding:18px 0 120px}
 .d.open{border-color:var(--pink);animation:glow 1.8s infinite}
 .d.done{background:var(--mint-l)}
 .d.lock{opacity:.6}
+.bonus{margin-top:16px;border-top:2px dashed var(--line);padding-top:14px}
+.bt{font-size:12px;text-transform:uppercase;letter-spacing:1.2px;font-weight:900;color:var(--pink-d);margin-bottom:10px}
+.pillcard{background:#fff;border-radius:var(--r);box-shadow:var(--soft);padding:16px;margin-top:16px}
+.pillbtn{width:100%;background:linear-gradient(90deg,#FFB3C8 50%,#fff 50%);border:2px solid #FF9DB9;border-radius:999px;padding:14px;font-weight:900;font-size:16px;color:var(--ink);box-shadow:var(--soft);transition:transform .15s}
+.pillbtn:active{transform:scale(.96) rotate(-2deg)}
+.pillout{background:var(--pink-l);border-radius:16px;padding:14px 16px;margin-top:10px;font-size:15.5px;font-weight:700;min-height:64px;display:flex;align-items:center}
+.pillout.pop{animation:pop .3s}
+.pillcnt{font-size:12px;color:var(--muted);text-align:right;margin-top:6px;min-height:16px}
+.gopts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.gopt{background:#fff;border:2px solid var(--pink-l);border-radius:14px;padding:11px 8px;font-weight:800;font-size:14px;color:var(--pink-d)}
+.gopt.on{background:var(--pink-l);border-color:var(--pink)}
+.gres{margin-top:12px;font-weight:700;font-size:15px}
+.goldbox{background:#FFF4D1;border:2px solid #F0C95A;border-radius:16px;padding:14px 16px;font-size:15px}
+.wheelbox{position:relative;width:230px;height:230px;margin:14px auto 0}
+.wheelbox:after{content:"▼";position:absolute;top:-16px;left:50%;transform:translateX(-50%);color:var(--pink-d);font-size:24px;line-height:1}
+.wheel{width:100%;height:100%;border-radius:50%;position:relative;border:6px solid #fff;box-shadow:var(--shadow);transition:transform 3.4s cubic-bezier(.15,.7,.2,1);background:conic-gradient(#FFB3C8 0 45deg,#BDEBDB 45deg 90deg,#FFE29A 90deg 135deg,#D9CCFF 135deg 180deg,#FFB3C8 180deg 225deg,#BDEBDB 225deg 270deg,#FFE29A 270deg 315deg,#D9CCFF 315deg 360deg)}
+.wheel span{position:absolute;transform:translate(-50%,-50%);font-size:24px;line-height:1}
+.wheel-c{position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:var(--soft)}
+.musya{width:100%;border-radius:18px;display:block}
+.diploma{border:3px double #C9962A;border-radius:16px;padding:18px 16px;text-align:center;background:#FFFBEF}
+.diploma h4{margin:0;font-size:26px;font-weight:900;letter-spacing:4px;color:#B07D12}
+.cp.gold{box-shadow:0 0 0 3px #F0C95A,var(--shadow)}
 @keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(255,127,162,.45)}50%{box-shadow:0 0 0 8px rgba(255,127,162,0)}}
 
 /* modal, toast, confetti */
@@ -308,6 +330,7 @@ const COUPONS = [
   {id:18, e:'📸', t:'Фотосессия от профи', d:'Сниму тебя как для рекламы'},
   {id:19, e:'🛍', t:'Шопинг без нытья', d:'Ношу пакеты, молчу, плачу (в пределах разумного)'},
   {id:20, e:'🌙', t:'Сказка на ночь', d:'Голосовым от Кота Енота (пожалуйста, не надо)'},
+  {id:21, e:'👑', t:'Енот на целый день', d:'Ты планируешь — я исполняю. Целый день', gold:true},
 ];
 /* намёки на защитном слое */
 const HINTS = {
@@ -331,18 +354,19 @@ const HINTS = {
   18: 'Готовься стать звездой ⭐',
   19: 'Кошелёк Енота уже дрожит 😅',
   20: 'Жили-были…',
+  21: 'Золотой. Секретный. Самый главный 👑',
 };
 const ACTIVE = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 
 /* ---------- данные: курс восстановления ---------- */
 const DAYS = [
-  {d:'2026-11-21', ic:'💪', note:'Кися Мися, первый рабочий день после больничного — пройден ✅<br>Ты большая молодец. Сегодня по рецепту только одно: лежать и ничего не делать. Это не лень, это реабилитация.'},
-  {d:'2026-11-22', ic:'☀️', note:'Говорят, второй день легче первого. А если нет — у Енот-Доставки выходных не бывает: открывай «Курьер» и заказывай что хочешь. Я рядом.'},
-  {d:'2026-11-23', ic:'🎉', tag:'выходной', note:'Выходной! Задание на сегодня: выспаться, вкусно поесть и ничего не планировать.<br>А ещё сегодня отличный день, чтобы активировать купон 😉'},
-  {d:'2026-11-24', ic:'🦸‍♀️', note:'Новая рабочая неделя. Напоминаю: ты победила грипп. Так что и эта неделя тебе по зубам 💪'},
-  {d:'2026-11-25', ic:'🫖', note:'Если устала — это нормально. Если соскучилась — тоже нормально. На оба случая одно лекарство: написать Коту Еноту.'},
-  {d:'2026-11-26', ic:'🩺', note:'Доктор Кот Енот осмотрел тебя на расстоянии и заключил: красивая, умная и самая лучшая. Обжалованию не подлежит.'},
-  {d:'2026-11-27', ic:'🏅', tag:'выписка', note:'Курс завершён! Пациент Кися Мися признана полностью здоровой.<br>А выписку принято отмечать. Как насчёт свидания? Подробности — у доктора 🦝'},
+  {d:'2026-11-21', bonus:'pill',ic:'💪', note:'Кися Мися, первый рабочий день после больничного — пройден ✅<br>Ты большая молодец. Сегодня по рецепту только одно: лежать и ничего не делать. Это не лень, это реабилитация.'},
+  {d:'2026-11-22', bonus:'guess',ic:'☀️', note:'Говорят, второй день легче первого. А если нет — у Енот-Доставки выходных не бывает: открывай «Курьер» и заказывай что хочешь. Я рядом.'},
+  {d:'2026-11-23', bonus:'gold',ic:'🎉', tag:'выходной', note:'Выходной! Задание на сегодня: выспаться, вкусно поесть и ничего не планировать.<br>А ещё сегодня отличный день, чтобы активировать купон 😉'},
+  {d:'2026-11-24', bonus:'wheel',ic:'🦸‍♀️', note:'Новая рабочая неделя. Напоминаю: ты победила грипп. Так что и эта неделя тебе по зубам 💪'},
+  {d:'2026-11-25', bonus:'musya',ic:'🫖', note:'Если устала — это нормально. Если соскучилась — тоже нормально. На оба случая одно лекарство: написать Коту Еноту.'},
+  {d:'2026-11-26', bonus:'task',ic:'🩺', note:'Доктор Кот Енот осмотрел тебя на расстоянии и заключил: красивая, умная и самая лучшая. Обжалованию не подлежит.'},
+  {d:'2026-11-27', bonus:'diploma',ic:'🏅', tag:'выписка', note:'Курс завершён! Пациент Кися Мися признана полностью здоровой.<br>А выписку принято отмечать. Как насчёт свидания? Подробности — у доктора 🦝'},
 ];
 
 /* ---------- утилиты ---------- */
@@ -545,7 +569,9 @@ function renderDx(r, fresh){
       <div class="sign"><div><div class="tiny">Лечащий врач</div><div class="hand">Кот Енот</div></div><div class="stamp">КОТ ЕНОТ<b>🦝</b>ОДОБРЕНО</div></div>
     </div>
     <div class="acts"><button class="btn" data-go="kupony">🎟 Купоны</button><button class="btn mint" data-go="kurier">🛵 Курьер</button></div>
+    <div class="pillcard"><div class="bt">💊 Для поднятия настроения</div>${pillHTML()}</div>
     <button class="again" id="reExam">Пройти осмотр заново</button>`;
+  bindPills($('#dxWrap'));
   requestAnimationFrame(() => requestAnimationFrame(() => { const b = $('#dxWrap .bat i'); if (b) b.style.width = r.bat + '%'; }));
   $('#reExam').onclick = () => { store.set('exam', null); runExam(); };
   if (fresh){
@@ -561,10 +587,14 @@ INIT.priem = () => {
 
 /* ---------- купоны со стиранием ---------- */
 const COLORS = ['#E2557D','#23946F','#7C5FD9','#D9742B'];
-const activeCoupons = () => COUPONS.filter(c => ACTIVE.includes(c.id));
+const goldOpen = () => PREVIEW || today() >= DAYS[2].d;
+const activeCoupons = () => {
+  const list = COUPONS.filter(c => !c.gold && ACTIVE.includes(c.id));
+  return goldOpen() ? COUPONS.filter(c => c.gold).concat(list) : list;
+};
 INIT.kupony = () => {
-  $('#cpList').innerHTML = activeCoupons().map((c, i) => `<div class="cp" data-id="${c.id}" style="--c:${COLORS[i % 4]}">
-      <div class="cp-h"><span>Купон № ${String(i + 1).padStart(2, '0')}</span></div>
+  $('#cpList').innerHTML = activeCoupons().map(c => `<div class="cp${c.gold ? ' gold' : ''}" data-id="${c.id}" style="--c:${c.gold ? '#B8861B' : COLORS[(c.id - 1) % 4]}">
+      <div class="cp-h"><span>${c.gold ? 'Золотой купон' : 'Купон'} № ${String(c.id).padStart(2, '0')}</span>${c.gold ? '<span>секретный</span>' : ''}</div>
       <div class="cp-b covered"><div class="cp-e">${c.e}</div><div><div class="cp-t">${c.t}</div><div class="cp-d">${c.d}</div></div><canvas></canvas></div>
       <div class="cp-f"><span class="hint">Действует бессрочно</span><button class="act" hidden>Активировать</button></div>
     </div>`).join('');
@@ -596,17 +626,19 @@ function setupScratch(card){
   const w = body.clientWidth, h = body.clientHeight, dpr = Math.min(window.devicePixelRatio || 1, 2);
   cv.width = w * dpr; cv.height = h * dpr;
   const ctx = cv.getContext('2d'); ctx.scale(dpr, dpr);
+  const gold = (COUPONS.find(x => x.id === id) || {}).gold;
   const g = ctx.createLinearGradient(0, 0, w, h);
-  g.addColorStop(0, '#E7DDF7'); g.addColorStop(.5, '#F8D6E2'); g.addColorStop(1, '#D6EFEA');
+  if (gold){ g.addColorStop(0, '#F9E7A6'); g.addColorStop(.5, '#E9C462'); g.addColorStop(1, '#FFF2C4'); }
+  else { g.addColorStop(0, '#E7DDF7'); g.addColorStop(.5, '#F8D6E2'); g.addColorStop(1, '#D6EFEA'); }
   ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
   ctx.fillStyle = 'rgba(255,255,255,.75)';
   for (let i = 0; i < 46; i++){ ctx.beginPath(); ctx.arc(Math.random() * w, Math.random() * h, Math.random() * 2.2 + .6, 0, 7); ctx.fill(); }
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.font = '900 21px Nunito, sans-serif'; ctx.fillStyle = '#6F5788';
+  ctx.font = '900 21px Nunito, sans-serif'; ctx.fillStyle = gold ? '#7A5508' : '#6F5788';
   const lines = wrapText(ctx, HINTS[id] || 'Что же тут?', w - 44), lh = 26;
   const top = h / 2 - (lines.length * lh + 22) / 2;
   lines.forEach((ln, k) => ctx.fillText(ln, w / 2, top + lh / 2 + k * lh));
-  ctx.font = '700 13px Nunito, sans-serif'; ctx.fillStyle = '#9A86AE';
+  ctx.font = '700 13px Nunito, sans-serif'; ctx.fillStyle = gold ? '#9A7320' : '#9A86AE';
   ctx.fillText('☝️ сотри — узнаешь, что там', w / 2, top + lines.length * lh + 12);
   body.classList.remove('covered');
   ctx.globalCompositeOperation = 'destination-out';
@@ -822,11 +854,169 @@ function openDay(i){
   openModal(`<div class="tiny">День ${i + 1} · ${human(x.d)}</div>
     <h3>Записка от Кота Енота ${x.ic}</h3>
     <div class="note">${x.note}<div class="from">— твой Кот Енот 🦝</div></div>
+    ${x.bonus && BONUS[x.bonus] ? `<div class="bonus">${BONUS[x.bonus]()}</div>` : ''}
     <button class="btn block" data-close style="margin-top:16px">Спасибо, доктор 💗</button>`);
+  if (x.bonus) bindBonus(x.bonus);
   if (first) confetti();
   renderDays();
 }
 INIT.kurs = renderDays;
+
+/* ---------- бонусы дней ---------- */
+const PILLS = [
+  'Доктор изучил снимки: в тебе обнаружено 100% милоты. Это не лечится.',
+  'Побочный эффект таблетки — улыбка. Доктор предупреждал.',
+  'Рецепт: обнять подушку и представить, что это Кот Енот. Повторять до засыпания.',
+  'Ты устала, потому что весь день была самой красивой на работе. Это тяжёлый труд.',
+  'Медицинский факт: Кися Мися лечит Кота Енота одним сообщением.',
+  'Доктор сверился с учебником. Там написано: «Кися Мися — молодец». С учебником не спорят.',
+  'Если работа — марафон, то ты сегодня пробежала его в тапочках. Уважение.',
+  'Анализы готовы: уровень обаяния превышает норму в три раза.',
+  'Таблетка без сахара. Сахар не нужен — ты и так сладкая.',
+  'Вирусы, услышав твоё имя, разбегаются. Проверено наукой (енотовой).',
+  'Совет доктора: если кто-то на работе бесит, представь его в шапочке для душа.',
+  'Ты как Wi-Fi: когда ты рядом, всё работает лучше.',
+  'Доктор официально разрешает сегодня ничего не делать. Справку выдаст.',
+  'Пациент жалуется на усталость. Доктор жалуется, что пациент далеко. Лечение одно — обнимашки.',
+  'Вдохни глубоко. Ещё глубже. Всё, хватит, а то улетишь.',
+  'Твоя улыбка внесена в список жизненно важных лекарств.',
+  'Енот-факт: еноты всё полощут. Кот Енот полощет мысли — и все они про тебя.',
+  '— Доктор, я устала. — Ложитесь. — Куда? — В плед. И пишите Еноту. Следующий!',
+  'Батарейка Киси заряжается от чая, сна и Кота Енота. Хотя бы одно уже рядом.',
+  'Ты победила грипп и первый рабочий день. Понедельник тебя боится.',
+  'Если бы за красоту давали больничный, ты бы не работала никогда.',
+  'Доктор прописывает: плед, сериал, вкусняшка. Не обсуждается.',
+  'Факт: когда ты улыбаешься, где-то радуется один енот.',
+  'Муся передаёт: «Пиу-пиу». С шиншиллового — «выздоравливай скорее».',
+  'Твоя усталость — доказательство, что сегодня ты всех спасла.',
+  'Моргни три раза. Готово, теперь ты ещё милее. Хотя нет, это невозможно — дальше некуда.',
+  'По шкале от 1 до 10 ты — 11. Доктор пересчитывал дважды.',
+  'Рецепт дня: одна горячая ванна, две любимые песни, три сообщения Коту Еноту.',
+  'Почему еноты не болеют? Потому что их лечит Кися Мися.',
+  'Ты не устала. Ты в режиме энергосбережения. Как айфон, только красивее.',
+  'Диагноз: сильная, умная, очень красивая. Лечению не подлежит.',
+  'Доктор выписывает тебе тысячу поцелуев. Принимать по требованию.',
+  'Если бы ты была таблеткой, ты была бы от всего сразу.',
+  'Завтра будет легче. А если нет — есть Енот-Доставка.',
+  'Ты — главная причина, почему Кот Енот улыбается в телефон как дурачок.',
+  'Медицина бессильна объяснить, как можно быть такой милой даже уставшей.',
+  'Внимание! Таблетки закончились. Шучу. Для тебя они бесконечные.',
+  'Учёные доказали: обнимашки продлевают жизнь. Енот готов к долголетию.',
+  'Ляг поудобнее. Ещё поудобнее. Вот так. Доктор доволен.',
+  'Ты сегодня молодец. Это не комплимент — это медицинское заключение.',
+];
+const WHEEL = [
+  'Ты самая красивая — и это не обсуждается 💗',
+  'У тебя самые красивые глаза на свете ✨',
+  'С тобой спокойно и тепло 🌙',
+  'Ты умница — и сама это знаешь 🧠',
+  'Твоя улыбка — на миллион 😊',
+  'Ты самая добрая из всех, кого я знаю 🌸',
+  'Ты делаешь мой день лучше. Каждый 🌞',
+  'Ты сильная: грипп проиграл ⚔️',
+  'Ты самая нежная 🦋',
+  'Ты — лучшая Кися на свете 🐱',
+  'Ты смешнее любого стендапа 😂',
+  'Ты самая заботливая 🫖',
+  'Рядом с тобой хочется быть лучше ⭐',
+  'Ты — сокровище Кота Енота 👑',
+  'Ты очень красивая, даже когда не выспалась 😴',
+  'Ты лучшее, что со мной случилось 💘',
+];
+const GUESS = [
+  ['Работает 💻', 'Работает — и всё равно думает о Кисе Мисе. Многозадачность 💪'],
+  ['Ест 🍕', 'Ест — и думает, что с Кисей Мисей было бы вкуснее 😋'],
+  ['Спит 😴', 'Спит — и видит во сне Кисю Мисю. Как и каждую ночь 💤'],
+  ['Думает обо мне 💭', 'В точку! 🎯 Кот Енот сейчас думает о Кисе Мисе. Как и всегда.'],
+];
+const WHEEL_EMO = ['💗','⭐','🌸','✨','🍓','🦋','🌙','☀️'];
+function bag(key, arr){
+  let b = store.get(key, []);
+  if (!b.length) b = arr.map((_, i) => i).sort(() => Math.random() - .5);
+  const i = b.pop(); store.set(key, b);
+  return arr[i] || arr[0];
+}
+function pillHTML(){
+  return `<button class="pillbtn" data-pill>💊 Таблетка от усталости</button>
+    <div class="pillout">Нажми — доктор выдаст дозу хорошего настроения</div><div class="pillcnt"></div>`;
+}
+function bindPills(root){
+  root.querySelectorAll('[data-pill]').forEach(b => b.onclick = () => {
+    vib(10);
+    const out = b.nextElementSibling, cnt = out.nextElementSibling;
+    out.textContent = bag('pillbag', PILLS);
+    out.classList.remove('pop'); void out.offsetWidth; out.classList.add('pop');
+    const n = store.get('pills', 0) + 1; store.set('pills', n);
+    cnt.textContent = `Принято таблеток: ${n}`;
+  });
+}
+const BONUS = {
+  pill: () => `<div class="bt">🎁 Бонус дня</div>${pillHTML()}
+    <p class="tiny" style="margin:8px 0 0">Таблетки не кончаются — жми сколько хочешь. Ещё они есть на вкладке «Приём».</p>`,
+  guess: () => `<div class="bt">🎁 Угадайка дня</div>
+    <p style="margin:0 0 10px;font-weight:800">Что сейчас делает Кот Енот?</p>
+    <div class="gopts">${GUESS.map((g, i) => `<button class="gopt" data-g="${i}">${g[0]}</button>`).join('')}</div>
+    <div class="gres" id="gres"></div>`,
+  gold: () => `<div class="bt">🎁 Бонус дня</div>
+    <div class="goldbox">👑 Открыт секретный <b>золотой купон № 21</b>! Его нет в общем списке — он уже ждёт тебя первым во вкладке «Купоны».</div>
+    <button class="btn block" id="toGold" style="margin-top:12px;background:#B8861B;box-shadow:0 8px 18px rgba(184,134,27,.3)">Стереть золотой купон</button>`,
+  wheel: () => `<div class="bt">🎁 Колесо комплиментов</div>
+    <div class="wheelbox"><div class="wheel" id="wheel">${WHEEL_EMO.map((e, i) => {
+      const a = (i * 45 + 22.5) * Math.PI / 180;
+      return `<span style="left:calc(50% + ${(Math.sin(a) * 76).toFixed(1)}px);top:calc(50% - ${(Math.cos(a) * 76).toFixed(1)}px)">${e}</span>`;
+    }).join('')}</div><div class="wheel-c">🦝</div></div>
+    <div class="pillout" id="wres" style="margin-top:14px">Крути — выпадет комплимент</div>
+    <button class="btn block" id="spin" style="margin-top:10px">Крутить 🎡</button>`,
+  musya: () => `<div class="bt">🎁 Фото Муси дня</div>
+    <img class="musya" src="musya.jpg" alt="Муся">
+    <p class="tiny" style="margin:8px 0 0">Муся передаёт привет и желает здоровья 🐾</p>`,
+  task: () => `<div class="bt">🎁 Задание дня</div>
+    <p style="margin:0 0 12px;font-weight:700">Сфоткай, что ты сейчас ешь, и пришли Коту Еноту 📸 Доктору надо убедиться, что пациент хорошо питается.</p>
+    <button class="btn block mint" id="taskBtn">Выполнить задание</button>`,
+  diploma: () => `<div class="diploma">
+      <h4>ГРАМОТА</h4>
+      <p class="tiny" style="margin:4px 0 0">награждается</p>
+      <div class="hand" style="transform:none;font-size:40px;margin:2px 0 6px">Кися Мися</div>
+      <p style="margin:0;font-size:14.5px">за мужество в борьбе с гриппом, героический выход на работу и стойкость перед вирусами.<br><b>Признана полностью здоровой.</b></p>
+      <div class="sign" style="text-align:left"><div><div class="tiny">Главный врач</div><div class="hand">Кот Енот</div></div><div class="stamp">КОТ ЕНОТ<b>🦝</b>ЗДОРОВА</div></div>
+    </div>
+    <button class="btn block" id="dipBtn" style="margin-top:14px">Отметить выписку 🥂</button>`,
+};
+function bindBonus(k){
+  const s = $('#sheet');
+  if (k === 'pill') bindPills(s);
+  if (k === 'guess') s.querySelectorAll('[data-g]').forEach(b => b.onclick = () => {
+    vib(10);
+    const g = GUESS[+b.dataset.g];
+    s.querySelectorAll('.gopt').forEach(x => x.classList.toggle('on', x === b));
+    $('#gres').innerHTML = `${esc(g[1])}<button class="again" id="askEnot">Спросить у Енота, что он делает на самом деле</button>`;
+    if (b.dataset.g === '3') confetti();
+    $('#askEnot').onclick = () => sendToEnot('Проверка 🕵️‍♀️', `Кот Енот, признавайся: что ты сейчас делаешь? 🕵️‍♀️\nЯ угадала: «${g[0]}»\nЖду фото-доказательство 📸`);
+  });
+  if (k === 'gold') $('#toGold').onclick = () => { closeModal(); inited.kupony = false; showTab('kupony'); };
+  if (k === 'wheel'){
+    let rot = 0, busy = false;
+    $('#spin').onclick = () => {
+      if (busy) return; busy = true; vib(10);
+      rot += 1440 + Math.floor(Math.random() * 360);
+      $('#wheel').style.transform = `rotate(${rot}deg)`;
+      $('#wres').textContent = 'Крутится…';
+      setTimeout(() => {
+        busy = false; const w = $('#wres'); if (!w) return;
+        w.textContent = bag('wheelbag', WHEEL);
+        w.classList.remove('pop'); void w.offsetWidth; w.classList.add('pop'); vib(25);
+      }, 3500);
+    };
+  }
+  if (k === 'musya'){
+    const img = s.querySelector('.musya');
+    const fail = () => { if (img.isConnected) img.outerHTML = '<div class="pillout">Муся ещё прихорашивается 🐾 Фото будет совсем скоро.</div>'; };
+    img.onerror = fail;
+    if (img.complete && !img.naturalWidth) fail();
+  }
+  if (k === 'task') $('#taskBtn').onclick = () => sendToEnot('Задание дня 📸', '📸 Выполняю задание дня! Сейчас пришлю фото того, что я ем 🍽\nДоктор, проверяйте.', 'Откроется чат с Котом Енотом — прикрепи фото и отправь.');
+  if (k === 'diploma') $('#dipBtn').onclick = () => sendToEnot('Отметить выписку 🥂', '🏅 Кот Енот, я официально здорова! Грамота получена, выписка на руках.\nГотова отмечать — жду приглашение на свидание 💘');
+}
 
 /* ---------- старт ---------- */
 if (store.get('entered', false)) enter();
