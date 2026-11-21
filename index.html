@@ -105,7 +105,7 @@ main{padding:18px 0 120px}
 @keyframes stamp{from{transform:rotate(-14deg) scale(2.2);opacity:0}to{transform:rotate(-14deg) scale(1);opacity:.85}}
 .acts{display:flex;gap:8px;margin-top:14px}
 .acts .btn{flex:1;font-size:15px;padding:13px 10px}
-.again{display:block;margin:14px auto 0;color:var(--muted);font-weight:700;font-size:14px;text-decoration:underline}
+.again{display:block;text-align:center;margin:14px auto 0;color:var(--muted);font-weight:700;font-size:14px;text-decoration:underline}
 
 /* coupons */
 .counter{display:inline-block;background:var(--lemon-l);color:#7A5600;font-weight:800;font-size:13px;padding:6px 12px;border-radius:999px;margin-bottom:14px}
@@ -395,14 +395,19 @@ function fallbackCopy(t){
   try{ const ta = document.createElement('textarea'); ta.value = t; ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); }catch(e){}
 }
 function sendToEnot(title, text, sub, onSend){
-  const url = 'https://t.me/' + TG + '?text=' + encodeURIComponent(text);
+  const q = encodeURIComponent(text);
+  const app = 'tg://resolve?domain=' + TG + '&text=' + q;
+  const web = 'https://t.me/' + TG + '?text=' + q;
   openModal(`<h3>${title}</h3>
-    <p class="lead" style="margin:0">${sub || 'Жми кнопку — откроется чат с Котом Енотом, текст уже будет внутри.'}</p>
+    <p class="lead" style="margin:0">${sub || 'Жми кнопку — откроется чат с Котом Енотом, сообщение уже будет написано. Останется нажать «Отправить».'}</p>
     <div class="preview">${esc(text)}</div>
-    <a class="btn block" id="goTg" href="${url}" rel="noopener">Отправить Коту Еноту ✈️</a>
-    <button class="again" data-close>Передумала</button>
-    <p class="tiny" style="text-align:center;margin:10px 0 0">Если текст не появился в чате — он уже скопирован, просто вставь.</p>`);
-  $('#goTg').addEventListener('click', () => { copyText(text); vib(20); if (onSend) onSend(); setTimeout(closeModal, 500); });
+    <a class="btn block" id="goTg" href="${app}">Отправить Коту Еноту ✈️</a>
+    <a class="again" id="goWeb" href="${web}" target="_blank" rel="noopener">Не открылось? Жми сюда</a>
+    <button class="again" data-close style="margin-top:6px">Закрыть</button>
+    <p class="tiny" style="text-align:center;margin:10px 0 0">Текст ещё и скопирован — если что, просто вставь его в чат.</p>`);
+  const sent = () => { copyText(text); vib(20); if (onSend) onSend(); };
+  $('#goTg').addEventListener('click', sent);
+  $('#goWeb').addEventListener('click', sent);
 }
 
 /* ---------- вход и вкладки ---------- */
