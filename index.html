@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Кот Енот 🦝 приём для Киси Миси</title>
+<meta name="description" content="Клиника доктора Кота Енота: осмотр, купоны, доставка и витаминки для Киси Миси.">
+<meta property="og:title" content="Кот Енот 🦝 приём для Киси Миси">
+<meta property="og:description" content="Доктор Кот Енот на связи. Заходи на осмотр — больно не будет.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#FFE4EE">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%9D%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFE4EE;--ink:#3A2C33;--muted:#8C7480;--line:#F7D3DF;
+  --pink:#FF7FA2;--pink-d:#E2557D;--pink-l:#FFE3EB;
+  --mint:#7ED6BA;--mint-d:#23946F;--mint-l:#E0F6EE;
+  --lemon:#FFD266;--lemon-l:#FFF4D6;
+  --shadow:0 8px 24px rgba(170,95,95,.13);
+  --soft:0 3px 10px rgba(170,95,95,.09);
+  --r:22px;
+  color-scheme:light;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0}
+body{font-family:'Nunito',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--bg);min-height:100vh;font-size:16px;line-height:1.45;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 0% 0%,#FFC7D9 0,transparent 55%),radial-gradient(circle at 100% 100%,#FFCFE0 0,transparent 55%),radial-gradient(circle at 100% 0%,#F6DAF2 0,transparent 45%)}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0}
+.wrap{max-width:480px;margin:0 auto;padding:0 16px}
+.tiny{font-size:12.5px;color:var(--muted)}
+
+/* intro */
+.intro{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px 16px}
+.big-enot{font-size:92px;line-height:1;animation:wobble 2.4s ease-in-out infinite}
+@keyframes wobble{0%,100%{transform:rotate(-6deg) translateY(0)}50%{transform:rotate(6deg) translateY(-8px)}}
+.intro h1{font-size:30px;font-weight:900;margin:14px 0 4px;letter-spacing:-.5px}
+.sub{color:var(--muted);margin:0 0 22px}
+.ticket{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:18px 20px 10px;width:100%;max-width:380px;text-align:left}
+.ticket h3{margin:0 0 10px;font-size:12.5px;text-transform:uppercase;letter-spacing:1.5px;color:var(--pink-d);font-weight:900}
+.row{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-top:1.5px dashed var(--line);font-size:15px}
+.row span{color:var(--muted);white-space:nowrap}
+.row b{text-align:right;font-weight:800}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--pink-d);color:#fff;font-weight:800;font-size:17px;padding:15px 26px;border-radius:999px;box-shadow:0 8px 18px rgba(226,85,125,.32);transition:transform .15s;text-decoration:none;text-align:center}
+.btn:active{transform:scale(.96)}
+.btn.mint{background:var(--mint-d);box-shadow:0 8px 18px rgba(35,148,111,.28)}
+.btn.block{display:flex;width:100%}
+.made{font-size:12.5px;color:var(--muted);margin-top:18px}
+
+/* header + nav */
+.top{position:sticky;top:0;z-index:20;background:rgba(255,228,238,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{font-weight:900;font-size:19px}
+.pill{background:var(--pink-l);color:var(--pink-d);font-weight:800;font-size:13px;padding:6px 12px;border-radius:999px}
+main{padding:18px 0 120px}
+.tab{display:none}.tab.on{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.ttl{font-size:24px;font-weight:900;margin:4px 0 6px}
+.lead{color:var(--muted);margin:0 0 16px;font-size:15px}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+.nav .in{max-width:480px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.nav button{display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 0;border-radius:14px;font-size:11.5px;font-weight:800;color:var(--muted)}
+.nav .i{font-size:22px;line-height:1.15;transition:transform .2s}
+.nav button.on{background:var(--pink-l);color:var(--pink-d)}
+.nav button.on .i{transform:translateY(-2px) scale(1.12)}
+.nav button{position:relative}
+.nav button.new:after{content:"";position:absolute;top:3px;left:calc(50% + 9px);width:9px;height:9px;border-radius:50%;background:#FF3B6B;box-shadow:0 0 0 2px #fff;animation:dot 1.6s infinite}
+@keyframes dot{0%,100%{transform:scale(1)}50%{transform:scale(1.35)}}
+.foot{text-align:center;font-size:12.5px;color:var(--muted);margin:30px 0 0}
+
+/* chat */
+.chat{display:flex;flex-direction:column;gap:10px}
+.m{max-width:86%;padding:11px 15px;border-radius:20px;font-size:15.5px;animation:pop .25s ease-out}
+.m.bot{align-self:flex-start;background:#fff;border-bottom-left-radius:6px;box-shadow:var(--soft)}
+.m.me{align-self:flex-end;background:var(--pink-d);color:#fff;border-bottom-right-radius:6px;font-weight:700}
+.who{font-size:12px;font-weight:900;color:var(--pink-d);margin-bottom:2px}
+.m.typing{display:flex;gap:4px;padding:15px 16px}
+.m.typing i{width:7px;height:7px;border-radius:50%;background:#D9C3CB;animation:blink 1s infinite}
+.m.typing i:nth-child(2){animation-delay:.15s}.m.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,80%,100%{opacity:.35;transform:none}40%{opacity:1;transform:translateY(-3px)}}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+.opts{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;margin-top:2px;animation:pop .3s}
+.opt{background:#fff;border:2px solid var(--pink-l);color:var(--pink-d);font-weight:800;font-size:15px;padding:10px 15px;border-radius:999px;transition:transform .15s,background .15s}
+.opt:active{transform:scale(.95);background:var(--pink-l)}
+
+/* diagnosis */
+.dx{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:22px 20px 20px;position:relative;overflow:hidden;animation:pop .4s;margin-top:16px;scroll-margin-top:70px}
+.dx:before{content:"";position:absolute;inset:0 0 auto;height:8px;background:repeating-linear-gradient(90deg,var(--pink) 0 16px,var(--mint) 16px 32px)}
+.dx .no{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:900}
+.dx h3{margin:2px 0 4px;font-size:21px;font-weight:900}
+.lbl{font-size:12px;text-transform:uppercase;letter-spacing:1.2px;font-weight:900;color:var(--pink-d);margin:16px 0 6px}
+.bat{height:16px;border-radius:999px;background:#F4ECE8;overflow:hidden}
+.bat i{display:block;height:100%;width:0;border-radius:999px;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.batv{font-size:14px;margin-top:6px;color:var(--muted)}.batv b{color:var(--ink);font-size:16px}
+.dx ul{margin:0;padding:0;list-style:none}
+.dx li{padding:5px 0 5px 28px;position:relative;font-size:15px}
+.dx li:before{content:attr(data-e);position:absolute;left:0;top:5px}
+.sign{display:flex;justify-content:space-between;align-items:flex-end;margin-top:14px}
+.hand{font-family:'Caveat',cursive;font-size:34px;line-height:1;color:#3E5BA9;transform:rotate(-4deg);margin-top:4px}
+.stamp{width:98px;height:98px;border-radius:50%;border:3px solid var(--pink-d);color:var(--pink-d);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900;font-size:10.5px;letter-spacing:1px;transform:rotate(-14deg);opacity:.85;box-shadow:inset 0 0 0 4px #fff,inset 0 0 0 5.5px var(--pink-d);animation:stamp .5s .5s both}
+.stamp b{font-size:22px;line-height:1.2}
+@keyframes stamp{from{transform:rotate(-14deg) scale(2.2);opacity:0}to{transform:rotate(-14deg) scale(1);opacity:.85}}
+.acts{display:flex;gap:8px;margin-top:14px}
+.acts .btn{flex:1;font-size:15px;padding:13px 10px}
+.again{display:block;margin:14px auto 0;color:var(--muted);font-weight:700;font-size:14px;text-decoration:underline}
+
+/* coupons */
+.counter{display:inline-block;background:var(--lemon-l);color:#7A5600;font-weight:800;font-size:13px;padding:6px 12px;border-radius:999px;margin-bottom:14px}
+.coupons{display:grid;gap:16px}
+.cp{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);position:relative;overflow:hidden;user-select:none;-webkit-user-select:none}
+.cp-h{display:flex;justify-content:space-between;padding:11px 18px;font-size:12px;font-weight:900;letter-spacing:1.3px;text-transform:uppercase;color:#fff;background:var(--c)}
+.cp-b{position:relative;padding:18px;min-height:116px;display:flex;align-items:center;gap:14px}
+.cp-b.covered>:not(canvas){visibility:hidden}
+.cp-e{font-size:42px;line-height:1}
+.cp-t{font-weight:900;font-size:19px;line-height:1.2}
+.cp-d{color:var(--muted);font-size:14px;margin-top:3px}
+.cp canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;transition:opacity .5s;cursor:grab}
+.cp canvas.gone{opacity:0;pointer-events:none}
+.cp-f{border-top:2px dashed var(--line);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;min-height:58px}
+.cp-f:before,.cp-f:after{content:"";position:absolute;top:-11px;width:20px;height:20px;border-radius:50%;background:var(--bg)}
+.cp-f:before{left:-10px}.cp-f:after{right:-10px}
+.hint{font-size:14px;color:var(--muted);font-weight:800}
+.act{background:var(--c);color:#fff;font-weight:800;font-size:14px;padding:9px 16px;border-radius:999px;animation:pop .3s}
+.used{position:absolute;right:12px;top:12px;transform:rotate(10deg);border:2.5px solid var(--mint-d);color:var(--mint-d);font-weight:900;font-size:11px;letter-spacing:1.3px;text-transform:uppercase;padding:3px 9px;border-radius:8px;background:rgba(255,255,255,.9)}
+
+/* courier */
+.tariff{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.tariff div{background:#fff;border-radius:16px;padding:10px 12px;font-size:12px;color:var(--muted);box-shadow:var(--soft)}
+.tariff b{display:block;color:var(--ink);font-size:14.5px;margin-top:1px}
+.tariff small{display:block;font-size:11.5px;font-weight:400;color:var(--muted);margin-top:2px;line-height:1.25}
+.goods{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g{background:#fff;border-radius:18px;padding:13px 12px;text-align:left;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14.5px;line-height:1.2;box-shadow:var(--soft);border:2px solid transparent;position:relative;transition:transform .15s,background .15s,border-color .15s}
+.g .e{font-size:28px;flex:none}
+.g.on{border-color:var(--pink);background:var(--pink-l)}
+.g.on:after{content:"✓";position:absolute;top:6px;right:8px;width:20px;height:20px;border-radius:50%;background:var(--pink-d);color:#fff;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.g:active{transform:scale(.97)}
+.sec{font-weight:900;font-size:15px;margin:20px 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:#fff;border:2px solid var(--line);border-radius:999px;padding:8px 14px;font-weight:800;font-size:14px}
+.chip.on{border-color:var(--mint-d);background:var(--mint-l);color:var(--mint-d)}
+.field{width:100%;border:2px solid var(--line);border-radius:16px;padding:12px 14px;font:inherit;font-size:16px;background:#fff;resize:vertical;min-height:84px;outline:none;color:var(--ink)}
+.field:focus{border-color:var(--pink)}
+
+/* game */
+.hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:800;font-size:15px}
+.hud .sc{font-size:20px}
+.stage{position:relative;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);background:linear-gradient(#FFF9F3,#FFE4EC);touch-action:none;user-select:none;-webkit-user-select:none}
+.stage canvas{display:block;width:100%;height:440px;touch-action:none}
+.ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;background:rgba(255,246,240,.9)}
+.ov h3{margin:4px 0 6px;font-size:24px;font-weight:900}
+.ov p{margin:0 0 14px;color:var(--muted);font-size:14.5px}
+.legend{display:flex;flex-direction:column;gap:6px;margin:4px 0 16px;font-size:15px;font-weight:700}
+.prize{background:#fff;border-radius:16px;padding:12px 16px;margin:4px 0 6px;font-weight:800;box-shadow:var(--soft)}
+.newrec{background:var(--lemon-l);color:#7A5600;font-weight:800;padding:4px 12px;border-radius:999px;font-size:13px;margin-bottom:6px}
+.ov .acts{width:100%;max-width:320px}
+.shake{animation:shake .35s}
+@keyframes shake{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+
+/* course */
+.battery{background:#fff;border-radius:18px;padding:14px 16px;box-shadow:var(--soft);margin-bottom:16px}
+.battery .t2{display:flex;justify-content:space-between;font-weight:900;font-size:14.5px;margin-bottom:8px}
+.days{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.d{background:#fff;border-radius:18px;padding:14px 6px 12px;text-align:center;box-shadow:var(--soft);border:2px solid transparent}
+.d:last-child{grid-column:span 3}
+.d .n{font-size:11.5px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.d .ic{font-size:30px;margin:4px 0 2px;line-height:1.2}
+.d .dt{font-weight:800;font-size:14px}
+.d .tag{font-size:11.5px;font-weight:900;color:var(--mint-d);margin-top:2px}
+.d .tag.today{color:var(--pink-d)}
+.d.open{border-color:var(--pink);animation:glow 1.8s infinite}
+.d.done{background:var(--mint-l)}
+.d.lock{opacity:.6}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(255,127,162,.45)}50%{box-shadow:0 0 0 8px rgba(255,127,162,0)}}
+
+/* modal, toast, confetti */
+.modal{position:fixed;inset:0;z-index:50;background:rgba(58,44,51,.45);display:flex;align-items:flex-end;justify-content:center;padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom))}
+@media(min-width:560px){.modal{align-items:center}}
+.sheet{background:#fff;border-radius:26px;width:100%;max-width:440px;padding:22px 20px 18px;animation:up .3s cubic-bezier(.2,.8,.2,1);max-height:88vh;overflow:auto}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.sheet h3{margin:2px 0 8px;font-size:21px;font-weight:900}
+.note{font-family:'Caveat',cursive;font-size:27px;line-height:34px;color:#3E3A6E;background:var(--lemon-l);border-radius:16px;padding:14px 18px;background-image:repeating-linear-gradient(transparent 0 33px,rgba(200,160,80,.22) 33px 34px);background-position:0 14px}
+.note .from{text-align:right;margin-top:4px}
+.preview{white-space:pre-wrap;background:#F6F1EE;border-radius:14px;padding:12px 14px;font-size:14px;margin:12px 0 14px}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-weight:700;font-size:14px;padding:11px 18px;border-radius:999px;opacity:0;transition:all .25s;z-index:60;width:max-content;max-width:90vw;text-align:center;pointer-events:none}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.cf{position:fixed;z-index:70;pointer-events:none;animation:cf 1.4s cubic-bezier(.2,.7,.4,1) forwards}
+@keyframes cf{0%{transform:translate(-50%,-50%) scale(.4);opacity:1}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) rotate(var(--r)) scale(1);opacity:0}}
+</style>
+</head>
+<body>
+
+<section id="intro" class="intro">
+  <div class="big-enot">🦝</div>
+  <h1>Клиника «Кот Енот»</h1>
+  <p class="sub">Приём без очереди, выходных и больничных</p>
+  <div class="ticket">
+    <h3>Направление на приём</h3>
+    <div class="row"><span>Пациент</span><b>Кися Мися 🐱</b></div>
+    <div class="row"><span>Лечащий врач</span><b>доктор Кот Енот 🦝</b></div>
+    <div class="row"><span>Жалобы</span><b>первый день на работе после больничного, устала</b></div>
+    <div class="row"><span>Оплата</span><b>обнимашками</b></div>
+  </div>
+  <button class="btn" id="enterBtn" style="margin-top:22px">Войти на приём →</button>
+  <p class="made">Собрано Котом Енотом вместе с ИИ<br>специально для тебя 💗</p>
+</section>
+
+<div id="app" hidden>
+  <header class="top"><div class="wrap"><div class="logo">🦝 Кот Енот</div><div class="pill">Кися Мися 🐱</div></div></header>
+  <main class="wrap">
+
+    <section class="tab" id="tab-priem">
+      <h2 class="ttl">Приём у доктора 🩺</h2>
+      <p class="lead">Доктор Кот Енот проведёт осмотр. Отвечай честно — он всё равно узнает.</p>
+      <div class="chat" id="chat"></div>
+      <div id="dxWrap"></div>
+    </section>
+
+    <section class="tab" id="tab-kupony">
+      <h2 class="ttl">Купоны 🎟</h2>
+      <p class="lead">Сотри пальцем верхний слой — под ним подарок. Жми «Активировать», и Кот Енот обязан исполнить. Срок действия — бессрочно.</p>
+      <div class="counter" id="cpCounter"></div>
+      <div class="coupons" id="cpList"></div>
+    </section>
+
+    <section class="tab" id="tab-kurier">
+      <h2 class="ttl">Енот-Доставка 🛵</h2>
+      <p class="lead">От двери Кота Енота до двери Киси Миси. Отметь, что привезти.</p>
+      <div class="tariff"><div>В пути<b>⚡ быстро</b><small>(насколько лапки позволят)</small></div><div>Стоимость<b>💋 поцелуй</b><small>+ одна шабака))</small></div><div>Рейтинг<b>⭐ 5.0</b></div></div>
+      <div class="goods" id="goods"></div>
+      <div class="sec">Когда привезти?</div>
+      <div class="chips" id="when"></div>
+      <div class="sec">Пожелание курьеру</div>
+      <textarea class="field" id="wish" placeholder="Например: мандарины послаще и обнимашек побольше"></textarea>
+      <button class="btn block" id="orderBtn" style="margin-top:16px">Оформить заказ 🛵</button>
+    </section>
+
+    <section class="tab" id="tab-igra">
+      <h2 class="ttl">Поймай витаминку 🍋</h2>
+      <p class="lead">Лови полезное, уворачивайся от вирусов. Управление — води пальцем по полю.</p>
+      <div class="hud"><span>Очки: <b class="sc" id="gScore">0</b></span><span id="gLives">❤️❤️❤️</span><span>Рекорд: <b id="gBest">0</b></span></div>
+      <div class="stage" id="stage">
+        <canvas id="gameCv"></canvas>
+        <div class="ov" id="gStart">
+          <div style="font-size:54px">😺</div>
+          <h3 id="gStartTitle">Готова?</h3>
+          <div class="legend"><span>🍋 🍊 🍯 🍵 🍫 — лови</span><span>🦠 🤧 — уворачивайся</span><span>🦝 — Кот Енот, даёт +1 жизнь</span></div>
+          <button class="btn" id="gStartBtn">Играть</button>
+        </div>
+        <div class="ov" id="gEnd" hidden>
+          <div style="font-size:50px">🏁</div>
+          <h3>Счёт: <span id="gFinal">0</span></h3>
+          <div class="newrec" id="gNew" hidden>Новый рекорд! 🎉</div>
+          <p style="margin:4px 0 4px">Твой приз:</p>
+          <div class="prize" id="gPrize"></div>
+          <div class="acts"><button class="btn" id="gAgain">Ещё раз</button><button class="btn mint" id="gSend">Похвастаться</button></div>
+        </div>
+      </div>
+      <p class="tiny" style="text-align:center;margin-top:12px">Призы: от 15 очков — шоколадка, от 40 — массаж плеч, от 80 — любое желание</p>
+    </section>
+
+    <section class="tab" id="tab-kurs">
+      <h2 class="ttl">Курс восстановления 📅</h2>
+      <p class="lead">Назначение: одна записка от Кота Енота в день, 7 дней. Новая открывается каждый день — подглядывать нельзя 👀</p>
+      <div class="battery"><div class="t2"><span>🔋 Заряд Киси</span><span id="batTxt">30%</span></div><div class="bat"><i id="batBar"></i></div></div>
+      <div class="days" id="days"></div>
+    </section>
+
+    <p class="foot">Собрано Котом Енотом вместе с ИИ — специально для Киси Миси.<br>Экземпляр № 1 из 1.</p>
+  </main>
+
+  <nav class="nav"><div class="in">
+    <button data-tab="priem"><span class="i">🩺</span>Приём</button>
+    <button data-tab="kupony"><span class="i">🎟</span>Купоны</button>
+    <button data-tab="kurier"><span class="i">🛵</span>Курьер</button>
+    <button data-tab="igra"><span class="i">🍋</span>Игра</button>
+    <button data-tab="kurs"><span class="i">📅</span>Курс</button>
+  </div></nav>
+</div>
+
+<div class="modal" id="modal" hidden><div class="sheet" id="sheet"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const TG = 'Timur_Izgutdinov';
+
+/* ---------- данные: купоны ---------- */
+const COUPONS = [
+  {id:1,  e:'🦶', t:'Массаж ног', d:'20 минут, без «ну всё, хватит»'},
+  {id:2,  e:'💆‍♀️', t:'Массаж спины и плеч', d:'Снимаем усталость после работы'},
+  {id:3,  e:'🐹', t:'Милота', d:'Гифка от Муси'},
+  {id:4,  e:'🎬', t:'Фильм на твой выбор', d:'Смотрю что угодно и не ною'},
+  {id:5,  e:'🍝', t:'Ужин от Кота Енота', d:'Приготовлю или привезу — как скажешь'},
+  {id:6,  e:'🥐', t:'Завтрак перед работой', d:'Привезу прямо к двери'},
+  {id:7,  e:'🚕', t:'Енот-такси', d:'Отвезу куда угодно или заберу откуда угодно'},
+  {id:8,  e:'🍰', t:'Вкусняшка за час', d:'По первому зову, без вопросов'},
+  {id:9,  e:'🤗', t:'Обнимашки без лимита', d:'Целый вечер, без перерывов'},
+  {id:10, e:'🏆', t:'«Ты права»', d:'Выиграть любой спор. Даже если не права'},
+  {id:11, e:'🦝', t:'Енот-полоскун', d:'Лёгкий петтинг'},
+  {id:12, e:'💘', t:'Свидание под ключ', d:'Всё придумаю и организую сам'},
+  {id:13, e:'☕', t:'Кафе на твой выбор', d:'Любое, без споров о меню'},
+  {id:14, e:'💐', t:'Цветы без повода', d:'Просто потому что'},
+  {id:15, e:'🎁', t:'Сюрприз', d:'Какой — узнаешь, когда активируешь'},
+  {id:16, e:'✨', t:'Любое желание', d:'В пределах разумного (но разум гибкий)'},
+  {id:17, e:'📵', t:'Вечер без телефонов', d:'Только мы и никаких рилсов'},
+  {id:18, e:'📸', t:'Фотосессия от профи', d:'Сниму тебя как для рекламы'},
+  {id:19, e:'🛍', t:'Шопинг без нытья', d:'Ношу пакеты, молчу, плачу (в пределах разумного)'},
+  {id:20, e:'🌙', t:'Сказка на ночь', d:'Голосовым от Кота Енота (пожалуйста, не надо)'},
+];
+/* намёки на защитном слое */
+const HINTS = {
+  1:  'Для уставших лапок 🐾',
+  2:  'Где болит? Тут? А тут?',
+  3:  'Осторожно: очень пушистое',
+  4:  'Попкорн уже греется 🍿',
+  5:  'Ням-ням 🍝',
+  6:  'Тук-тук! Доброе утро ☀️',
+  7:  'Бип-бип! 🚗',
+  8:  'Срочно нужно сладкое?',
+  9:  'Тепло… ещё теплее…',
+  10: 'Секретное оружие для споров',
+  11: 'Шаловливые лапки 😏',
+  12: 'Надень что-нибудь красивое 💘',
+  13: 'Куда пойдём? Решаешь ты',
+  14: 'Пахнет чем-то приятным 🌷',
+  15: 'Тут даже доктор не знает',
+  16: 'Джинн-енот на связи 🧞',
+  17: 'Офлайн-режим 📵',
+  18: 'Готовься стать звездой ⭐',
+  19: 'Кошелёк Енота уже дрожит 😅',
+  20: 'Жили-были…',
+};
+const ACTIVE = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+
+/* ---------- данные: курс восстановления ---------- */
+const DAYS = [
+  {d:'2026-11-21', ic:'💪', note:'Кися Мися, первый рабочий день после больничного — пройден ✅<br>Ты большая молодец. Сегодня по рецепту только одно: лежать и ничего не делать. Это не лень, это реабилитация.'},
+  {d:'2026-11-22', ic:'☀️', note:'Говорят, второй день легче первого. А если нет — у Енот-Доставки выходных не бывает: открывай «Курьер» и заказывай что хочешь. Я рядом.'},
+  {d:'2026-11-23', ic:'🎉', tag:'выходной', note:'Выходной! Задание на сегодня: выспаться, вкусно поесть и ничего не планировать.<br>А ещё сегодня отличный день, чтобы активировать купон 😉'},
+  {d:'2026-11-24', ic:'🦸‍♀️', note:'Новая рабочая неделя. Напоминаю: ты победила грипп. Так что и эта неделя тебе по зубам 💪'},
+  {d:'2026-11-25', ic:'🫖', note:'Если устала — это нормально. Если соскучилась — тоже нормально. На оба случая одно лекарство: написать Коту Еноту.'},
+  {d:'2026-11-26', ic:'🩺', note:'Доктор Кот Енот осмотрел тебя на расстоянии и заключил: красивая, умная и самая лучшая. Обжалованию не подлежит.'},
+  {d:'2026-11-27', ic:'🏅', tag:'выписка', note:'Курс завершён! Пациент Кися Мися признана полностью здоровой.<br>А выписку принято отмечать. Как насчёт свидания? Подробности — у доктора 🦝'},
+];
+
+/* ---------- утилиты ---------- */
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const mem = {};
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem('enot_'+k); if (v !== null) return JSON.parse(v); }catch(e){} return k in mem ? mem[k] : d; },
+  set(k, v){ mem[k] = v; try{ localStorage.setItem('enot_'+k, JSON.stringify(v)); }catch(e){} }
+};
+const params = new URLSearchParams(location.search);
+if (params.has('reset')) { try{ Object.keys(localStorage).filter(k => k.startsWith('enot_')).forEach(k => localStorage.removeItem(k)); }catch(e){} }
+const PREVIEW = params.has('preview');
+function plural(n, one, few, many){ const a = n % 10, b = n % 100; return a === 1 && b !== 11 ? one : a >= 2 && a <= 4 && (b < 12 || b > 14) ? few : many; }
+function vib(ms){ try{ navigator.vibrate && navigator.vibrate(ms || 12); }catch(e){} }
+
+function toast(t){
+  const el = $('#toast'); el.textContent = t; el.classList.add('on');
+  clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('on'), 2600);
+}
+function confetti(x, y, n){
+  const E = ['💗','✨','🎉','💖','⭐','🌸'];
+  n = n || 36;
+  for (let i = 0; i < n; i++){
+    const s = document.createElement('span'); s.className = 'cf'; s.textContent = E[i % E.length];
+    const a = Math.random() * Math.PI * 2, d = 80 + Math.random() * 160;
+    s.style.left = (x == null ? innerWidth / 2 : x) + 'px';
+    s.style.top = (y == null ? innerHeight * .45 : y) + 'px';
+    s.style.fontSize = (16 + Math.random() * 14) + 'px';
+    s.style.setProperty('--dx', Math.cos(a) * d + 'px');
+    s.style.setProperty('--dy', (Math.sin(a) * d - 40) + 'px');
+    s.style.setProperty('--r', (Math.random() * 540 - 270) + 'deg');
+    document.body.appendChild(s); setTimeout(() => s.remove(), 1500);
+  }
+}
+function shake(el){ el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
+
+/* ---------- модалка + отправка в Telegram ---------- */
+function openModal(html){ $('#sheet').innerHTML = html; $('#modal').hidden = false; }
+function closeModal(){ $('#modal').hidden = true; }
+$('#modal').addEventListener('click', e => { if (e.target.id === 'modal' || e.target.closest('[data-close]')) closeModal(); });
+
+function copyText(t){
+  try{ if (navigator.clipboard) return navigator.clipboard.writeText(t).catch(() => fallbackCopy(t)); }catch(e){}
+  fallbackCopy(t);
+}
+function fallbackCopy(t){
+  try{ const ta = document.createElement('textarea'); ta.value = t; ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); }catch(e){}
+}
+function sendToEnot(title, text, sub, onSend){
+  const url = 'https://t.me/' + TG + '?text=' + encodeURIComponent(text);
+  openModal(`<h3>${title}</h3>
+    <p class="lead" style="margin:0">${sub || 'Жми кнопку — откроется чат с Котом Енотом, текст уже будет внутри.'}</p>
+    <div class="preview">${esc(text)}</div>
+    <a class="btn block" id="goTg" href="${url}" rel="noopener">Отправить Коту Еноту ✈️</a>
+    <button class="again" data-close>Передумала</button>
+    <p class="tiny" style="text-align:center;margin:10px 0 0">Если текст не появился в чате — он уже скопирован, просто вставь.</p>`);
+  $('#goTg').addEventListener('click', () => { copyText(text); vib(20); if (onSend) onSend(); setTimeout(closeModal, 500); });
+}
+
+/* ---------- вход и вкладки ---------- */
+const INIT = {}, inited = {};
+let current = '';
+function enter(){
+  store.set('entered', true);
+  $('#intro').hidden = true; $('#app').hidden = false;
+  showTab('priem');
+}
+$('#enterBtn').addEventListener('click', () => { vib(); enter(); });
+
+function showTab(name){
+  current = name;
+  $$('.tab').forEach(t => t.classList.toggle('on', t.id === 'tab-' + name));
+  $$('.nav button').forEach(b => b.classList.toggle('on', b.dataset.tab === name));
+  window.scrollTo(0, 0);
+  const seen = store.get('seen', []);
+  if (!seen.includes(name)){ seen.push(name); store.set('seen', seen); }
+  $$('.nav button').forEach(b => b.classList.toggle('new', !seen.includes(b.dataset.tab)));
+  if (name !== 'igra') game.pause();
+  if (!inited[name]) { inited[name] = true; INIT[name] && INIT[name](); }
+  if (name === 'kupony') requestAnimationFrame(initScratches);
+  if (name === 'igra') requestAnimationFrame(game.resize);
+}
+$$('.nav button').forEach(b => b.addEventListener('click', () => { vib(8); showTab(b.dataset.tab); }));
+document.addEventListener('click', e => { const g = e.target.closest('[data-go]'); if (g) { vib(8); showTab(g.dataset.go); } });
+
+/* ---------- приём: бот-доктор ---------- */
+const Q = [
+  {key:'q1', q:'Вопрос 1 из 5. Как самочувствие? Шкала — от «огурчик» до «тряпочка».', o:[
+    {t:'Огурчик 🥒', s:0, r:'Отлично! Хотя доктор подозревает, что ты немножко храбришься 🧐'},
+    {t:'Помятый огурчик', s:20, r:'Помятый огурчик — всё ещё огурчик. Это лечится.'},
+    {t:'Тряпочка 🥴', s:40, r:'Понимаю. Первый день после больничного — как марафон, только без медали.'},
+    {t:'Тряпочка, которую уронили', s:55, r:'Ох. Срочно поднимаем тряпочку и укрываем пледом 🛋'}]},
+  {key:'q2', q:'Вопрос 2. Сколько раз сегодня на работе хотелось лечь прямо под стол?', o:[
+    {t:'Ни разу, я кремень', s:0, r:'Кремень! Записываю: пациент сильнее, чем кажется 💪'},
+    {t:'Раза три', s:10, r:'Три — это норма. Доктор сам хотел раз пять.'},
+    {t:'Я и сейчас под столом', s:25, r:'Отличная позиция. Доктор одобряет горизонтальный образ жизни.'},
+    {t:'Некогда было считать', s:15, r:'Значит, работала как пчёлка. А пчёлке положен мёд 🍯'}]},
+  {key:'q3', q:'Вопрос 3. Как горлышко?', o:[
+    {t:'Уже норм', id:'ok', s:0, r:'Прекрасно! Горло отмечено как «победившее» 🏆'},
+    {t:'Немножко скребёт', id:'scr', s:8, r:'Значит, тёплый чай с мёдом — обязательно. Холодное пока под запретом 🚫🍦'},
+    {t:'Хриплю как пират 🏴‍☠️', id:'pir', s:15, r:'Аррр! Пирату срочно чай с мёдом и поменьше разговоров. Писать Коту Еноту — можно.'}]},
+  {key:'q4', q:'Вопрос 4. Чего сейчас хочется больше всего?', o:[
+    {t:'Спать 😴', id:'sleep', s:0, r:'Сон — лучшее лекарство. Записываю.'},
+    {t:'Вкусняшку 🍫', id:'sweet', s:0, r:'Вкусняшка — не каприз, а медицинская необходимость.'},
+    {t:'Обнимашки 🤗', id:'hug', s:0, r:'Обнимашки… Этот препарат есть только у одного врача 🦝'},
+    {t:'Всё сразу и побольше', id:'all', s:0, r:'Правильный ответ. Мне нравится этот пациент.'}]},
+];
+let lastWho = '', examRun = 0;
+function scrollEnd(){ if (current === 'priem') requestAnimationFrame(() => window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'})); }
+function addMsg(cls, html){
+  const m = document.createElement('div'); m.className = 'm ' + cls; m.innerHTML = html;
+  $('#chat').appendChild(m); scrollEnd(); return m;
+}
+async function bot(text, run){
+  const t = addMsg('bot typing', '<i></i><i></i><i></i>');
+  await sleep(Math.min(1500, 450 + text.length * 14));
+  t.remove();
+  if (run !== examRun) throw 'stop';
+  addMsg('bot', (lastWho !== 'bot' ? '<div class="who">Доктор Кот Енот</div>' : '') + esc(text));
+  lastWho = 'bot';
+  await sleep(250);
+}
+function choose(opts){
+  return new Promise(res => {
+    const box = document.createElement('div'); box.className = 'opts';
+    opts.forEach(o => {
+      const b = document.createElement('button'); b.className = 'opt'; b.textContent = o.t;
+      b.onclick = () => { vib(10); box.remove(); addMsg('me', esc(o.t)); lastWho = 'me'; res(o); };
+      box.appendChild(b);
+    });
+    $('#chat').appendChild(box); scrollEnd();
+  });
+}
+async function runExam(){
+  const run = ++examRun;
+  $('#chat').innerHTML = ''; $('#dxWrap').innerHTML = ''; lastWho = '';
+  try{
+    const ans = {}; let bat = 100;
+    await bot('Здравствуй, Кися Мися! 👋', run);
+    await bot('На связи доктор Кот Енот 🦝 Мне доложили: сегодня ты впервые после больничного сходила на работу.', run);
+    await bot('Это подвиг. Давай проведём быстрый осмотр — 5 вопросов, больно не будет.', run);
+    for (const q of Q){
+      await bot(q.q, run);
+      const o = await choose(q.o);
+      ans[q.key] = o.id || o.t; bat -= o.s;
+      await bot(o.r, run);
+    }
+    await bot('И последний вопрос. Самый важный. Кот Енот сегодня хороший?', run);
+    let opts = [{t:'Самый лучший 🦝', id:'best'}, {t:'Хороший', id:'good'}, {t:'Ну такое 😐', id:'meh'}];
+    for (;;){
+      const o = await choose(opts);
+      if (o.id === 'meh'){
+        await bot('Ошибка 404: такой ответ системой не предусмотрен 😤', run);
+        await bot('Попробуй ещё раз.', run);
+        opts = [{t:'Самый лучший 🦝', id:'best'}, {t:'Лучший на свете 💗', id:'best'}];
+        continue;
+      }
+      await bot(o.id === 'best' ? 'Доктор покраснел 🦝💗 Осмотр окончен, выписываю заключение…' : 'Принято. Хотя «самый лучший» звучало бы точнее 😏 Выписываю заключение…', run);
+      break;
+    }
+    const res = Object.assign({bat: Math.max(7, Math.min(100, bat))}, ans);
+    store.set('exam', res);
+    await sleep(600);
+    renderDx(res, true);
+  }catch(e){ /* осмотр перезапущен */ }
+}
+function renderDx(r, fresh){
+  const dx = [['🤒','Синдром первого рабочего дня после больничного']];
+  const q4dx = {sleep:['😴','Острый недосып'], sweet:['🍫','Хронический дефицит вкусняшек'], hug:['🤗','Острая нехватка обнимашек, запущенная стадия'], all:['🌀','Комплексная недообнимашенность и недовкусняшенность']};
+  if (q4dx[r.q4]) dx.push(q4dx[r.q4]);
+  if (r.q3 === 'pir') dx.push(['🏴‍☠️','Пиратский голос (временно)']);
+  if (r.q3 === 'scr') dx.push(['🧣','Лёгкое царапание горлышка']);
+  if (r.bat >= 80) dx.push(['🧐','Подозрительная бодрость — нужен личный осмотр']);
+  const rx = [['🛋','Лежать горизонтально весь вечер, без возражений']];
+  rx.push(r.q3 === 'ok' ? ['🍋','Чай с лимоном и мёдом — для профилактики'] : ['🍯','Тёплый чай с лимоном и мёдом — 2 кружки. Холодное пока нельзя']);
+  if (r.q4 === 'sleep' || r.q4 === 'all') rx.push(['🌙','Сон — минимум 8 часов. Будильник отменить нельзя, но можно его ненавидеть']);
+  if (r.q4 === 'sweet' || r.q4 === 'all') rx.push(['🍫','Шоколадка — 1 шт. (можно 2). Доставка — во вкладке «Курьер»']);
+  if (r.q4 === 'hug' || r.q4 === 'all') rx.push(['🤗','Обнимашки — по требованию. Курьер выезжает по кнопке']);
+  rx.push(['🎟','Купоны — стирать по одному, когда грустно']);
+  rx.push(['💌','Записка от Кота Енота — раз в день, вкладка «Курс»']);
+  const col = r.bat < 35 ? 'linear-gradient(90deg,#FF7FA2,#FF9F80)' : r.bat < 65 ? 'linear-gradient(90deg,#FFC24D,#FFD266)' : 'linear-gradient(90deg,#5CCBA6,#7ED6BA)';
+  const word = r.bat < 35 ? 'срочно на зарядку' : r.bat < 65 ? 'режим энергосбережения' : 'почти как новенькая';
+  const li = a => a.map(([e, t]) => `<li data-e="${e}">${t}</li>`).join('');
+  $('#dxWrap').innerHTML = `<div class="dx" id="dxCard">
+      <div class="no">Медицинское заключение № 001</div>
+      <h3>Пациент: Кися Мися 🐱</h3>
+      <div class="lbl">Заряд батарейки</div>
+      <div class="bat"><i style="background:${col}"></i></div>
+      <div class="batv"><b>${r.bat}%</b> — ${word}</div>
+      <div class="lbl">Диагноз</div><ul>${li(dx)}</ul>
+      <div class="lbl">Назначение</div><ul>${li(rx)}</ul>
+      <div class="sign"><div><div class="tiny">Лечащий врач</div><div class="hand">Кот Енот</div></div><div class="stamp">КОТ ЕНОТ<b>🦝</b>ОДОБРЕНО</div></div>
+    </div>
+    <div class="acts"><button class="btn" data-go="kupony">🎟 Купоны</button><button class="btn mint" data-go="kurier">🛵 Курьер</button></div>
+    <button class="again" id="reExam">Пройти осмотр заново</button>`;
+  requestAnimationFrame(() => requestAnimationFrame(() => { const b = $('#dxWrap .bat i'); if (b) b.style.width = r.bat + '%'; }));
+  $('#reExam').onclick = () => { store.set('exam', null); runExam(); };
+  if (fresh){
+    confetti(); $('#dxCard').scrollIntoView({behavior:'smooth', block:'start'});
+    setTimeout(() => toast('👇 Внизу ещё 4 вкладки — загляни'), 2200);
+  }
+}
+INIT.priem = () => {
+  const r = store.get('exam', null);
+  if (r){ addMsg('bot', '<div class="who">Доктор Кот Енот</div>С возвращением, Кися Мися! Вот твоё заключение 👇'); lastWho = 'bot'; renderDx(r, false); }
+  else runExam();
+};
+
+/* ---------- купоны со стиранием ---------- */
+const COLORS = ['#E2557D','#23946F','#7C5FD9','#D9742B'];
+const activeCoupons = () => COUPONS.filter(c => ACTIVE.includes(c.id));
+INIT.kupony = () => {
+  $('#cpList').innerHTML = activeCoupons().map((c, i) => `<div class="cp" data-id="${c.id}" style="--c:${COLORS[i % 4]}">
+      <div class="cp-h"><span>Купон № ${String(i + 1).padStart(2, '0')}</span></div>
+      <div class="cp-b covered"><div class="cp-e">${c.e}</div><div><div class="cp-t">${c.t}</div><div class="cp-d">${c.d}</div></div><canvas></canvas></div>
+      <div class="cp-f"><span class="hint">Действует бессрочно</span><button class="act" hidden>Активировать</button></div>
+    </div>`).join('');
+  updateCounter();
+};
+function updateCounter(){
+  const ids = activeCoupons().map(c => c.id), rev = store.get('rev', []).filter(id => ids.includes(id));
+  $('#cpCounter').textContent = `Открыто ${rev.length} из ${ids.length}`;
+}
+async function initScratches(){
+  try{ if (document.fonts) await document.fonts.ready; }catch(e){}
+  $$('#cpList .cp').forEach(setupScratch);
+}
+function wrapText(ctx, text, max){
+  const lines = []; let cur = '';
+  for (const wd of text.split(' ')){
+    const test = cur ? cur + ' ' + wd : wd;
+    if (cur && ctx.measureText(test).width > max){ lines.push(cur); cur = wd; } else cur = test;
+  }
+  if (cur) lines.push(cur);
+  return lines;
+}
+function setupScratch(card){
+  if (card.dataset.ready) return;
+  const body = card.querySelector('.cp-b'), cv = body.querySelector('canvas'), id = +card.dataset.id;
+  if (!body.clientWidth) return;
+  card.dataset.ready = 1;
+  if (store.get('rev', []).includes(id)){ cv.remove(); body.classList.remove('covered'); markOpen(card); return; }
+  const w = body.clientWidth, h = body.clientHeight, dpr = Math.min(window.devicePixelRatio || 1, 2);
+  cv.width = w * dpr; cv.height = h * dpr;
+  const ctx = cv.getContext('2d'); ctx.scale(dpr, dpr);
+  const g = ctx.createLinearGradient(0, 0, w, h);
+  g.addColorStop(0, '#E7DDF7'); g.addColorStop(.5, '#F8D6E2'); g.addColorStop(1, '#D6EFEA');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = 'rgba(255,255,255,.75)';
+  for (let i = 0; i < 46; i++){ ctx.beginPath(); ctx.arc(Math.random() * w, Math.random() * h, Math.random() * 2.2 + .6, 0, 7); ctx.fill(); }
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.font = '900 21px Nunito, sans-serif'; ctx.fillStyle = '#6F5788';
+  const lines = wrapText(ctx, HINTS[id] || 'Что же тут?', w - 44), lh = 26;
+  const top = h / 2 - (lines.length * lh + 22) / 2;
+  lines.forEach((ln, k) => ctx.fillText(ln, w / 2, top + lh / 2 + k * lh));
+  ctx.font = '700 13px Nunito, sans-serif'; ctx.fillStyle = '#9A86AE';
+  ctx.fillText('☝️ сотри — узнаешь, что там', w / 2, top + lines.length * lh + 12);
+  body.classList.remove('covered');
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.lineWidth = 40; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  let down = false, last = null, moves = 0, done = false;
+  const pt = e => { const r = cv.getBoundingClientRect(); return {x: e.clientX - r.left, y: e.clientY - r.top}; };
+  const check = () => {
+    if (done) return;
+    const d = ctx.getImageData(0, 0, cv.width, cv.height).data; let clear = 0, tot = 0;
+    for (let i = 3; i < d.length; i += 4 * 23){ tot++; if (d[i] < 30) clear++; }
+    if (clear / tot > .5){ done = true; reveal(); }
+  };
+  const reveal = () => {
+    cv.classList.add('gone'); setTimeout(() => cv.remove(), 550);
+    const rev = store.get('rev', []); if (!rev.includes(id)) rev.push(id); store.set('rev', rev);
+    markOpen(card); updateCounter(); vib(30);
+    const b = body.getBoundingClientRect(); confetti(b.left + b.width / 2, b.top + b.height / 2, 30);
+  };
+  cv.addEventListener('pointerdown', e => { down = true; last = pt(e); try{ cv.setPointerCapture(e.pointerId); }catch(_){} ctx.beginPath(); ctx.arc(last.x, last.y, 20, 0, 7); ctx.fill(); });
+  cv.addEventListener('pointermove', e => {
+    if (!down) return; const p = pt(e);
+    ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(p.x, p.y); ctx.stroke(); last = p;
+    if (++moves % 6 === 0) check();
+  });
+  const up = () => { if (down){ down = false; check(); } };
+  cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+}
+function markOpen(card){
+  const id = +card.dataset.id, c = COUPONS.find(x => x.id === id), btn = card.querySelector('.act');
+  card.querySelector('.hint').textContent = 'Открыт ✨'; btn.hidden = false;
+  if (store.get('used', []).includes(id)) setUsed(card);
+  btn.onclick = () => {
+    const isUsed = store.get('used', []).includes(id), no = card.querySelector('.cp-h span').textContent;
+    if (isUsed){
+      sendToEnot('Напомнить Еноту 😤', `Кот Енот, напоминаю про купон «${c.t}» 😤⏰\nКупон активирован и ждёт исполнения!`);
+    } else {
+      sendToEnot('Активировать купон 🎟', `🎟 Кот Енот, активирую купон «${c.t}»!\n${c.d}\n\n${no}, клиника «Кот Енот». Исполнять!`, null, () => {
+        const u = store.get('used', []); if (!u.includes(id)) u.push(id); store.set('used', u); setUsed(card);
+      });
+    }
+  };
+}
+function setUsed(card){
+  if (!card.querySelector('.used')){ const s = document.createElement('div'); s.className = 'used'; s.textContent = 'Активирован'; card.querySelector('.cp-b').appendChild(s); }
+  card.querySelector('.act').textContent = 'Напомнить 😤';
+}
+
+/* ---------- Енот-Доставка ---------- */
+const GOODS = [['🍋','Чай с лимоном и мёдом'],['🍊','Мандарины'],['🍲','Супчик'],['🍫','Шоколадка'],['🍓','Фрукты'],['🥐','Что-то к чаю'],['💊','Что-то из аптеки'],['🍕','Нормальную еду, я голодная'],['🍦','Мороженое (если горло разрешит)'],['🦝','Просто приезжай']];
+const WHEN = ['Прямо сейчас','Через часик','Завтра после работы','Когда удобно'];
+INIT.kurier = () => {
+  $('#goods').innerHTML = GOODS.map(([e, t], i) => `<button class="g" data-i="${i}"><span class="e">${e}</span><span>${t}</span></button>`).join('');
+  $('#when').innerHTML = WHEN.map((t, i) => `<button class="chip${i === 0 ? ' on' : ''}">${t}</button>`).join('');
+  $$('#goods .g').forEach(b => b.onclick = () => { vib(8); b.classList.toggle('on'); });
+  $$('#when .chip').forEach(b => b.onclick = () => { vib(8); $$('#when .chip').forEach(x => x.classList.remove('on')); b.classList.add('on'); });
+  $('#orderBtn').onclick = () => {
+    const picked = $$('#goods .g.on').map(b => GOODS[+b.dataset.i]);
+    const wish = $('#wish').value.trim();
+    if (!picked.length && !wish){ toast('Выбери хоть что-нибудь 🙂'); shake($('#goods')); return; }
+    const when = ($('#when .chip.on') || {}).textContent || 'Прямо сейчас';
+    let text = '🛵 Заказ в Енот-Доставку!\nОт: Кися Мися 🐱\n\n' + picked.map(([e, t]) => `${e} ${t}`).join('\n');
+    text += `\n\nКогда: ${when.toLowerCase()}`;
+    if (wish) text += `\nПожелание: ${wish}`;
+    text += '\nОплата: поцелуем 💋 + одна шабака))';
+    sendToEnot('Заказ готов 🛵', text, 'Курьер Кот Енот уже надевает шапку. Жми кнопку — заказ улетит ему в Telegram.');
+  };
+};
+
+/* ---------- игра «Поймай витаминку» ---------- */
+const game = (() => {
+  const cv = $('#gameCv'), ctx = cv.getContext('2d'), stage = $('#stage');
+  const EMO = '"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';
+  const GOOD = [['🍋',1],['🍊',1],['🍵',1],['🍓',1],['🍯',2],['🍫',2]];
+  let W = 0, H = 0, running = false, paused = false, raf = 0, last = 0;
+  let items = [], floats = [], px = 0, tx = 0, score = 0, lives = 3, t = 0, spawn = 0, flash = 0;
+  let best = store.get('best', 0);
+  const PY = () => H - 44;
+
+  function resize(){
+    const r = stage.getBoundingClientRect(); if (!r.width) return;
+    W = r.width; H = Math.round(Math.min(W * 1.3, Math.max(360, innerHeight - 280)));
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (!running){ if (!px) px = tx = W / 2; draw(); }
+    hud();
+  }
+  function hud(){
+    $('#gScore').textContent = score; $('#gBest').textContent = best;
+    $('#gLives').textContent = '❤️'.repeat(Math.max(0, lives)) + '🤍'.repeat(Math.max(0, 3 - lives));
+  }
+  function start(){
+    if (paused){ paused = false; $('#gStart').hidden = true; running = true; last = performance.now(); raf = requestAnimationFrame(loop); return; }
+    items = []; floats = []; score = 0; lives = 3; t = 0; spawn = .4; px = tx = W / 2; flash = 0;
+    $('#gStart').hidden = true; $('#gEnd').hidden = true; hud();
+    running = true; last = performance.now(); raf = requestAnimationFrame(loop);
+  }
+  function pause(){
+    if (!running) return;
+    running = false; paused = true; cancelAnimationFrame(raf);
+    $('#gStartTitle').textContent = 'Пауза ⏸'; $('#gStartBtn').textContent = 'Продолжить'; $('#gStart').hidden = false;
+  }
+  function loop(now){
+    if (!running) return;
+    const dt = Math.min(.05, (now - last) / 1000); last = now; t += dt;
+    update(dt); if (running) draw();
+    raf = requestAnimationFrame(loop);
+  }
+  function addItem(){
+    const r = Math.random(), bad = Math.min(.42, .18 + t * .006); let it;
+    if (r < .025 && lives < 5) it = {e:'🦝', type:'enot'};
+    else if (r < .025 + bad) it = {e: Math.random() < .7 ? '🦠' : '🤧', type:'bad'};
+    else { const g = GOOD[Math.floor(Math.random() * GOOD.length)]; it = {e:g[0], type:'good', p:g[1]}; }
+    it.x = 24 + Math.random() * (W - 48); it.y = -30;
+    it.v = (150 + t * 4.5 + Math.random() * 60) * (H / 560);
+    it.rot = 0; it.vr = (Math.random() - .5) * 2;
+    items.push(it);
+  }
+  function float(text, x, c){ floats.push({t:text, x: Math.max(70, Math.min(W - 70, x)), y: PY() - 40, a: 1, c}); }
+  function catchIt(it){
+    if (it.type === 'good'){ score += it.p; float('+' + it.p, it.x, '#23946F'); vib(8); }
+    else if (it.type === 'enot'){ lives = Math.min(5, lives + 1); score += 3; float('Кот Енот спешит на помощь! ❤️', it.x, '#E2557D'); vib(25); }
+    else {
+      lives--; flash = .35; float(Math.random() < .5 ? 'Апчхи!' : 'Фу, вирус!', it.x, '#C0392B'); vib(60); shake(stage);
+      if (lives <= 0){ hud(); return end(); }
+    }
+    hud();
+  }
+  function update(dt){
+    spawn -= dt; if (spawn <= 0){ spawn = Math.max(.32, .95 - t * .011); addItem(); }
+    px += (tx - px) * Math.min(1, dt * 18);
+    const py = PY();
+    for (const it of items){
+      it.y += it.v * dt; it.rot += it.vr * dt;
+      if (!it.hit && it.y > py - 34 && it.y < py + 18 && Math.abs(it.x - px) < 36){ it.hit = true; catchIt(it); if (!running) return; }
+    }
+    items = items.filter(it => !it.hit && it.y < H + 40);
+    floats.forEach(f => { f.y -= 40 * dt; f.a -= dt * 1.1; }); floats = floats.filter(f => f.a > 0);
+    if (flash > 0) flash -= dt;
+  }
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(255,255,255,.65)';
+    [[.2,.14,30],[.78,.3,24],[.42,.56,20]].forEach(([x, y, r]) => {
+      ctx.beginPath(); ctx.arc(x * W, y * H, r, 0, 7); ctx.arc(x * W + r * .9, y * H + 6, r * .75, 0, 7); ctx.arc(x * W - r * .9, y * H + 8, r * .65, 0, 7); ctx.fill();
+    });
+    ctx.fillStyle = 'rgba(255,127,162,.14)'; ctx.fillRect(0, H - 16, W, 16);
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#000';
+    for (const it of items){
+      ctx.save(); ctx.translate(it.x, it.y); ctx.rotate(it.rot * .3);
+      ctx.font = (it.type === 'enot' ? 38 : 32) + 'px ' + EMO; ctx.fillText(it.e, 0, 0); ctx.restore();
+    }
+    ctx.font = '50px ' + EMO; ctx.fillText(lives > 0 ? '😺' : '😿', px, PY());
+    for (const f of floats){
+      ctx.globalAlpha = Math.max(0, f.a); ctx.font = '900 15px Nunito, sans-serif'; ctx.fillStyle = f.c; ctx.fillText(f.t, f.x, f.y); ctx.globalAlpha = 1;
+    }
+    if (flash > 0){ ctx.fillStyle = `rgba(255,80,100,${flash * .45})`; ctx.fillRect(0, 0, W, H); }
+  }
+  function end(){
+    running = false; paused = false; cancelAnimationFrame(raf); draw();
+    const isNew = score > best && score > 0;
+    if (isNew){ best = score; store.set('best', best); }
+    hud();
+    const prize = score >= 80 ? '✨ Любое желание (в пределах разумного)' : score >= 40 ? '💆‍♀️ Массаж плеч, 10 минут' : score >= 15 ? '🍫 Шоколадка от Енот-Доставки' : '🤗 Утешительная обнимашка';
+    $('#gFinal').textContent = score; $('#gPrize').textContent = prize; $('#gNew').hidden = !isNew;
+    $('#gEnd').hidden = false;
+    const s = score;
+    $('#gSend').onclick = () => sendToEnot('Похвастаться Еноту 🏆', `🍋 Я набрала ${s} ${plural(s, 'очко', 'очка', 'очков')} в «Поймай витаминку»!\nМой рекорд: ${best}\nМой приз: ${prize}\nВыдавай 😼`);
+    if (score >= 15) confetti();
+  }
+  const move = e => { const r = cv.getBoundingClientRect(); tx = Math.max(26, Math.min(W - 26, e.clientX - r.left)); };
+  cv.addEventListener('pointerdown', e => { move(e); try{ cv.setPointerCapture(e.pointerId); }catch(_){} });
+  cv.addEventListener('pointermove', move);
+  document.addEventListener('keydown', e => {
+    if (!running) return;
+    if (e.key === 'ArrowLeft') tx = Math.max(26, tx - 45);
+    if (e.key === 'ArrowRight') tx = Math.min(W - 26, tx + 45);
+  });
+  $('#gStartBtn').addEventListener('click', () => { vib(); start(); });
+  $('#gAgain').addEventListener('click', () => { vib(); paused = false; start(); });
+  window.addEventListener('resize', () => { if (current === 'igra') resize(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
+  return {resize, pause};
+})();
+
+/* ---------- курс восстановления ---------- */
+const MONTHS = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+function today(){ const n = new Date(); return n.getFullYear() + '-' + String(n.getMonth() + 1).padStart(2, '0') + '-' + String(n.getDate()).padStart(2, '0'); }
+function human(ds){ const [y, m, d] = ds.split('-').map(Number); return d + ' ' + MONTHS[m - 1]; }
+function renderDays(){
+  const td = today(), opened = store.get('days', []);
+  $('#days').innerHTML = DAYS.map((x, i) => {
+    const can = PREVIEW || x.d <= td, done = opened.includes(i);
+    const cls = done ? 'done' : can ? 'open' : 'lock';
+    const tag = x.d === td ? '<div class="tag today">сегодня</div>' : x.tag ? `<div class="tag">${x.tag}</div>` : '';
+    return `<button class="d ${cls}" data-i="${i}"><div class="n">День ${i + 1}</div><div class="ic">${done ? x.ic : can ? '💌' : '🔒'}</div><div class="dt">${human(x.d)}</div>${tag}</button>`;
+  }).join('');
+  $$('#days .d').forEach(b => b.onclick = () => openDay(+b.dataset.i));
+  const pct = Math.min(100, 30 + opened.length * 10);
+  $('#batTxt').textContent = pct + '%';
+  const bar = $('#batBar');
+  bar.style.background = pct < 60 ? 'linear-gradient(90deg,#FFC24D,#FFD266)' : 'linear-gradient(90deg,#5CCBA6,#7ED6BA)';
+  requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.width = pct + '%'; }));
+}
+function openDay(i){
+  const x = DAYS[i];
+  if (!(PREVIEW || x.d <= today())){
+    toast(`Рано! Откроется ${human(x.d)}. Кот Енот всё видит 👀`);
+    shake($(`#days .d[data-i="${i}"]`)); vib(30); return;
+  }
+  const o = store.get('days', []), first = !o.includes(i);
+  if (first){ o.push(i); store.set('days', o); }
+  openModal(`<div class="tiny">День ${i + 1} · ${human(x.d)}</div>
+    <h3>Записка от Кота Енота ${x.ic}</h3>
+    <div class="note">${x.note}<div class="from">— твой Кот Енот 🦝</div></div>
+    <button class="btn block" data-close style="margin-top:16px">Спасибо, доктор 💗</button>`);
+  if (first) confetti();
+  renderDays();
+}
+INIT.kurs = renderDays;
+
+/* ---------- старт ---------- */
+if (store.get('entered', false)) enter();
+</script>
+</body>
+</html>
