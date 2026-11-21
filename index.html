@@ -61,6 +61,9 @@ main{padding:18px 0 120px}
 .ttl{font-size:24px;font-weight:900;margin:4px 0 6px}
 .lead{color:var(--muted);margin:0 0 16px;font-size:15px}
 .nav{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+.nav{box-shadow:0 -8px 24px rgba(170,95,95,.12)}
+.nav:before{content:"";position:absolute;left:0;right:0;top:-28px;height:28px;background:linear-gradient(to bottom,rgba(255,228,238,0),rgba(255,228,238,.92));pointer-events:none}
+.eb{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#fff;font-size:18px;line-height:1}
 .nav .in{max-width:480px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
 .nav button{display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 0;border-radius:14px;font-size:11.5px;font-weight:800;color:var(--muted)}
 .nav .i{font-size:22px;line-height:1.15;transition:transform .2s}
@@ -250,13 +253,13 @@ main{padding:18px 0 120px}
     <section class="tab" id="tab-kurier">
       <h2 class="ttl">Енот-Доставка 🛵</h2>
       <p class="lead">От двери Кота Енота до двери Киси Миси. Отметь, что привезти.</p>
-      <div class="tariff"><div>В пути<b>⚡ быстро</b><small>(насколько лапки позволят)</small></div><div>Стоимость<b>💋 поцелуй</b><small>+ одна шабака))</small></div><div>Рейтинг<b>⭐ 5.0</b></div></div>
+      <div class="tariff"><div>В пути<b>⚡ быстро</b><small>(насколько лапки позволят)</small></div><div>Стоимость<b>💋 поцелуй</b><small>+ одна шабака))</small></div><div>Рейтинг<b>⭐ 5.0</b><small>(разве бывает меньше?)</small></div></div>
       <div class="goods" id="goods"></div>
       <div class="sec">Когда привезти?</div>
       <div class="chips" id="when"></div>
       <div class="sec">Пожелание курьеру</div>
       <textarea class="field" id="wish" placeholder="Например: мандарины послаще и обнимашек побольше"></textarea>
-      <button class="btn block" id="orderBtn" style="margin-top:16px">Оформить заказ 🛵</button>
+      <button class="btn block" id="orderBtn" style="margin-top:16px">Оформить заказ <span class="eb">🛵</span></button>
     </section>
 
     <section class="tab" id="tab-igra">
@@ -590,13 +593,13 @@ const COLORS = ['#E2557D','#23946F','#7C5FD9','#D9742B'];
 const goldOpen = () => PREVIEW || today() >= DAYS[2].d;
 const activeCoupons = () => {
   const list = COUPONS.filter(c => !c.gold && ACTIVE.includes(c.id));
-  return goldOpen() ? list.concat(COUPONS.filter(c => c.gold)) : list;
+  return list.concat(COUPONS.filter(c => c.gold));
 };
 INIT.kupony = () => {
-  $('#cpList').innerHTML = activeCoupons().map(c => `<div class="cp${c.gold ? ' gold' : ''}" data-id="${c.id}" style="--c:${c.gold ? '#B8861B' : COLORS[(c.id - 1) % 4]}">
+  $('#cpList').innerHTML = activeCoupons().map(c => `<div class="cp${c.gold ? ' gold' : ''}${c.gold && !goldOpen() ? ' locked' : ''}" data-id="${c.id}" style="--c:${c.gold ? '#B8861B' : COLORS[(c.id - 1) % 4]}">
       <div class="cp-h"><span>${c.gold ? 'Золотой купон' : 'Купон'} № ${String(c.id).padStart(2, '0')}</span>${c.gold ? '<span>секретный</span>' : ''}</div>
       <div class="cp-b covered"><div class="cp-e">${c.e}</div><div><div class="cp-t">${c.t}</div><div class="cp-d">${c.d}</div></div><canvas></canvas></div>
-      <div class="cp-f"><span class="hint">Действует бессрочно</span><button class="act" hidden>Активировать</button></div>
+      <div class="cp-f"><span class="hint">${c.gold && !goldOpen() ? 'Откроется 23 ноября 🔒' : 'Действует бессрочно'}</span><button class="act" hidden>Активировать</button></div>
     </div>`).join('');
   updateCounter();
 };
@@ -635,12 +638,18 @@ function setupScratch(card){
   for (let i = 0; i < 46; i++){ ctx.beginPath(); ctx.arc(Math.random() * w, Math.random() * h, Math.random() * 2.2 + .6, 0, 7); ctx.fill(); }
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
   ctx.font = '900 21px Nunito, sans-serif'; ctx.fillStyle = gold ? '#7A5508' : '#6F5788';
-  const lines = wrapText(ctx, HINTS[id] || 'Что же тут?', w - 44), lh = 26;
+  const locked = card.classList.contains('locked');
+  const lines = wrapText(ctx, locked ? 'Секретный купон 🔒' : (HINTS[id] || 'Что же тут?'), w - 44), lh = 26;
   const top = h / 2 - (lines.length * lh + 22) / 2;
   lines.forEach((ln, k) => ctx.fillText(ln, w / 2, top + lh / 2 + k * lh));
   ctx.font = '700 13px Nunito, sans-serif'; ctx.fillStyle = gold ? '#9A7320' : '#9A86AE';
-  ctx.fillText('☝️ сотри — узнаешь, что там', w / 2, top + lines.length * lh + 12);
+  ctx.fillText(locked ? 'откроется 23 ноября — подглядывать нельзя' : '☝️ сотри — узнаешь, что там', w / 2, top + lines.length * lh + 12);
   body.classList.remove('covered');
+  if (locked){
+    cv.style.touchAction = 'auto'; cv.style.cursor = 'pointer';
+    cv.addEventListener('click', () => { toast('Рано! Золотой купон откроется 23 ноября 👀'); shake(card); vib(30); });
+    return;
+  }
   ctx.globalCompositeOperation = 'destination-out';
   ctx.lineWidth = 40; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
   let down = false, last = null, moves = 0, done = false;
@@ -958,7 +967,7 @@ const BONUS = {
     <div class="gopts">${GUESS.map((g, i) => `<button class="gopt" data-g="${i}">${g[0]}</button>`).join('')}</div>
     <div class="gres" id="gres"></div>`,
   gold: () => `<div class="bt">🎁 Бонус дня</div>
-    <div class="goldbox">👑 Открыт секретный <b>золотой купон № 21</b>! Раньше его не было — теперь он ждёт тебя в самом конце вкладки «Купоны».</div>
+    <div class="goldbox">👑 Секретный <b>золотой купон № 21</b> разблокирован! Он в самом конце вкладки «Купоны» — теперь его можно стереть.</div>
     <button class="btn block" id="toGold" style="margin-top:12px;background:#B8861B;box-shadow:0 8px 18px rgba(184,134,27,.3)">Стереть золотой купон</button>`,
   wheel: () => `<div class="bt">🎁 Колесо комплиментов</div>
     <div class="wheelbox"><div class="wheel" id="wheel">${WHEEL_EMO.map((e, i) => {
